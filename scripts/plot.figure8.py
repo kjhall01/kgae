@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import matplotlib.gridspec as gridspec 
 import matplotlib.patches as patches
-import src 
+import kgae 
 import numpy as np 
 from pathlib import Path 
 
@@ -57,7 +57,7 @@ levels = np.linspace(-1, 1, 21)
 levels2 = np.linspace(-1, 1, 11)
 months = ['Jan', 'Feb', 'Mar', "Apr", 'May', "Jun", 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-corrs, sigs = src.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
+corrs, sigs = kgae.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
 corrsnan = corrs.copy()
 corrsnan[sigs > 0.05] = np.nan
 cp = lagcc_ax0.contourf(  np.arange(-nlags, nlags+1), np.arange(12), corrsnan, levels=levels, cmap='RdBu_r') 
@@ -155,7 +155,7 @@ levels = np.linspace(-1, 1, 21)
 levels2 = np.linspace(-1, 1, 11)
 months = ['Jan', 'Feb', 'Mar', "Apr", 'May', "Jun", 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-corrs, sigs = src.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
+corrs, sigs = kgae.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
 corrsnan = corrs.copy()
 corrsnan[sigs > 0.05] = np.nan
 cp = lagcc_ax1.contourf(  np.arange(-nlags, nlags+1), np.arange(12), corrsnan, levels=levels, cmap='RdBu_r') 
@@ -251,7 +251,7 @@ levels = np.linspace(-1, 1, 21)
 levels2 = np.linspace(-1, 1, 11)
 months = ['Jan', 'Feb', 'Mar', "Apr", 'May', "Jun", 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
-corrs, sigs = src.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
+corrs, sigs = kgae.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Interannual'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
 corrsnan = corrs.copy()
 corrsnan[sigs > 0.05] = np.nan
 cp = lagcc_ax2.contourf(  np.arange(-nlags, nlags+1), np.arange(12), corrsnan, levels=levels, cmap='RdBu_r') 

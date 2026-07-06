@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import matplotlib.gridspec as gridspec 
 import matplotlib.patches as patches
-import src 
+import kgae 
 import numpy as np 
 from pathlib import Path 
 
@@ -49,8 +49,8 @@ for init in range(N):
     tc4.append(tc5)
 tc4 = xr.concat(tc4, 'initialization').assign_coords({'initialization': np.arange(N)}).sel(time=slice('1950-01-01', '2014-12-31')).mean('initialization')
 
-oni = src.open_oni().sel(time=tc2.time)
-pdo = src.open_pdo().sel(dataset='PSL ERSSTv5 PDO').sel(time=tc2.time)
+oni = kgae.open_oni().sel(time=tc2.time)
+pdo = kgae.open_pdo().sel(dataset='PSL ERSSTv5 PDO').sel(time=tc2.time)
 
 
 ## correlations between basin-wide primary modes and PDO/ONI

@@ -4,7 +4,7 @@ import pandas as pd
 import matplotlib.pyplot as plt 
 import matplotlib.gridspec as gridspec 
 import matplotlib.patches as patches
-import src 
+import kgae 
 import numpy as np 
 from pathlib import Path 
 
@@ -33,13 +33,13 @@ tc2 = xr.concat(tc3, 'initialization').assign_coords({'initialization': np.arang
 tc2 = tc2.sel(time=slice('1958-01-01', '2014-12-31'))
 
 ssh = xr.open_dataset('~/Desktop/Data/oras5/oras5.ssh.195801-201412.nc').ssh.sel(lon=slice(40, 100))
-ssha, fit, gwm, p  = src.global_detrend(ssh, deg=2)
-ssha , mc = src.remove_climo(ssha)
+ssha, fit, gwm, p  = kgae.global_detrend(ssh, deg=2)
+ssha , mc = kgae.remove_climo(ssha)
 
 u = xr.open_dataset('~/Desktop/Data/oras5/oras5.u.195801-201412.nc').u
 u = u.sel(lat=slice(-10,10), depthu=slice(None,500))#.sel(lon=slice(40, 100))
-ua, fit, gwm, p  = src.global_detrend(u, deg=2)
-ua , mc = src.remove_climo(ua)
+ua, fit, gwm, p  = kgae.global_detrend(u, deg=2)
+ua , mc = kgae.remove_climo(ua)
 
 
 
@@ -208,8 +208,8 @@ tc2 = tc2.sel(time=slice('1958-01-01', '2014-12-31'))
 
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(pd.Timestamp(1958,1,1), pd.Timestamp(2014,12,31)))
 sst = sst.rename({'latitude':'lat', 'longitude': 'lon'}) 
-ssta, fit, gwm, p  = src.global_detrend(sst, deg=2)
-ssta , mc = src.remove_climo(ssta)
+ssta, fit, gwm, p  = kgae.global_detrend(sst, deg=2)
+ssta , mc = kgae.remove_climo(ssta)
 
 
 lat1, lat2 = -2, 2
@@ -230,7 +230,7 @@ months = ['Jan', 'Feb', 'Mar', "Apr", 'May', "Jun", 'Jul', 'Aug', 'Sep', 'Oct', 
 #corrs, sigs = src.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Quasibiennial'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
 #corrs, sigs = src.crosscorrelation_by_month(src.low_pass(ssta_times_ua, threshold=7*12*30.4*86400), src.low_pass(tc2.mean('initialization').sel(mode='Decadal'), threshold=7*12*30.4*86400), nlags=nlags)
 int_ssta_times_ua = ssta_times_ua.rolling(time=24, center=False).sum().dropna('time')
-corrs, sigs = src.crosscorrelation_by_month(int_ssta_times_ua,  tc2.mean('initialization').sel(mode='Decadal').sel(time=int_ssta_times_ua.time), nlags=nlags)
+corrs, sigs = kgae.crosscorrelation_by_month(int_ssta_times_ua,  tc2.mean('initialization').sel(mode='Decadal').sel(time=int_ssta_times_ua.time), nlags=nlags)
 #corrs, sigs = src.crosscorrelation_by_month(ssta_times_ua, tc2.mean('initialization').sel(mode='Decadal'), nlags=nlags)
 
 #corrs, sigs = src.crosscorrelation_by_month(full_encodings.isel(recursion=0).mean('initialization').sel(mode='Decadal'), full_encodings.isel(recursion=2).mean('initialization').sel(mode='Decadal'), nlags=nlags)

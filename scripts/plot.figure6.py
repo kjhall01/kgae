@@ -4,7 +4,7 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt 
 import numpy as np 
 import torch 
-import src 
+import kgae 
 import pandas as pd 
 from sklearn.decomposition import PCA 
 
@@ -106,7 +106,7 @@ fourier_coeffs = torch.fft.rfft(data, dim=0)
 fourier_coeffs = (fourier_coeffs*torch.conj(fourier_coeffs)).real#[mask, :]
 fc_scale = fourier_coeffs.sum(dim=0) #max(dim=0)[0]
 fourier_coeffs = fourier_coeffs / fc_scale
-fourier_coeffs, frequencies = src.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
+fourier_coeffs, frequencies = kgae.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
 fourier_coeffs = fourier_coeffs / fourier_coeffs.sum(dim=0)
 
 ticks= 40, 20, 12, 7, 5, 2, 1 
@@ -119,7 +119,7 @@ fourier_coeffs = torch.fft.rfft(data, dim=0)
 fourier_coeffs = (fourier_coeffs*torch.conj(fourier_coeffs)).real#[mask, :]
 fc_scale = fourier_coeffs.sum(dim=0) #max(dim=0)[0]
 fourier_coeffs = fourier_coeffs / fc_scale
-fourier_coeffs, frequencies = src.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
+fourier_coeffs, frequencies = kgae.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
 fourier_coeffs = fourier_coeffs / fourier_coeffs.sum(dim=0)
 
 
@@ -142,8 +142,8 @@ powerspectra_ax.spines['top'].set_color('none')
 
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(None, pd.Timestamp(2014,12,31)))
 sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})
-ssta, trend, gwm, p = src.global_detrend(sst,deg=2)
-ssta, monthly_clim = src.remove_climo(ssta)
+ssta, trend, gwm, p = kgae.global_detrend(sst,deg=2)
+ssta, monthly_clim = kgae.remove_climo(ssta)
 
 
 map_axs = [ fig.add_subplot(gs[:30, :5], projection=ccrs.PlateCarree(central_longitude=180)), fig.add_subplot(gs[:30, 5:], projection=ccrs.PlateCarree(central_longitude=180))] 
@@ -262,7 +262,7 @@ levels2 = np.linspace(-1, 1, 11)
 months = ['Jan', 'Feb', 'Mar', "Apr", 'May', "Jun", 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
 
 #corrs, sigs = src.crosscorrelation_by_month(encodings.mean('initialization').sel(mode='Quasibiennial'), encodings.mean('initialization').sel(mode='Quasibiennial'), nlags=nlags)
-corrs, sigs = src.crosscorrelation_by_month(src.low_pass(full_encodings, threshold=12*30.4*86400).isel(recursion=0).mean('initialization').sel(mode='Decadal'), src.low_pass(full_encodings, threshold=12*30.4*86400).isel(recursion=2).mean('initialization').sel(mode='Decadal'), nlags=nlags)
+corrs, sigs = kgae.crosscorrelation_by_month(kgae.low_pass(full_encodings, threshold=12*30.4*86400).isel(recursion=0).mean('initialization').sel(mode='Decadal'), kgae.low_pass(full_encodings, threshold=12*30.4*86400).isel(recursion=2).mean('initialization').sel(mode='Decadal'), nlags=nlags)
 #corrs, sigs = src.crosscorrelation_by_month(full_encodings.isel(recursion=0).mean('initialization').sel(mode='Decadal'), full_encodings.isel(recursion=2).mean('initialization').sel(mode='Decadal'), nlags=nlags)
 
 corrsnan = corrs.copy()

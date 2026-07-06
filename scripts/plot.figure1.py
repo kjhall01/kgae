@@ -4,7 +4,7 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt 
 import numpy as np 
 import torch 
-import src 
+import kgae 
 import pandas as pd 
 from sklearn.decomposition import PCA 
 
@@ -81,8 +81,8 @@ powerspectra_ax = fig.add_subplot(gs[75:, :])
 
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst#.sel(time=slice(None, pd.Timestamp(2014,12,31)))
 sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})
-ssta, trend, gwm, p = src.global_detrend(sst,deg=2)
-ssta, monthly_clim = src.remove_climo(ssta)
+ssta, trend, gwm, p = kgae.global_detrend(sst,deg=2)
+ssta, monthly_clim = kgae.remove_climo(ssta)
 print(ssta)
 
 era5_oni = ssta.sel(lat=slice(-5,5), lon=slice(10,60)).mean('lat').mean('lon').rolling(time=3, center=True).mean().dropna('time')
@@ -93,7 +93,7 @@ pca.fit( pcadata )
 raw_pc1 = pca.transform(pcadata)[:,0]
 
 
-lpf_pcadata = src.low_pass(ssta, threshold=6*12*30.4*86400).load().stack(feature=('lat',"lon")).dropna("feature", how="any").transpose("time", "feature").values
+lpf_pcadata = kgae.low_pass(ssta, threshold=6*12*30.4*86400).load().stack(feature=('lat',"lon")).dropna("feature", how="any").transpose("time", "feature").values
 lpf_pca = PCA(n_components=3)
 lpf_pca.fit( lpf_pcadata )
 lpf_pc1 = lpf_pca.transform(lpf_pcadata)[:,0]
@@ -110,7 +110,7 @@ fourier_coeffs = torch.fft.rfft(data, dim=0)
 fourier_coeffs = (fourier_coeffs*torch.conj(fourier_coeffs)).real#[mask, :]
 fc_scale = fourier_coeffs.sum(dim=0) #max(dim=0)[0]
 fourier_coeffs = fourier_coeffs / fc_scale
-fourier_coeffs, frequencies = src.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
+fourier_coeffs, frequencies = kgae.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
 fourier_coeffs = fourier_coeffs / fourier_coeffs.sum(dim=0)
 
 ticks= 40, 20, 12, 7, 5, 2, 1 
@@ -131,7 +131,7 @@ fourier_coeffs = torch.fft.rfft(data, dim=0)
 fourier_coeffs = (fourier_coeffs*torch.conj(fourier_coeffs)).real#[mask, :]
 fc_scale = fourier_coeffs.sum(dim=0) #max(dim=0)[0]
 fourier_coeffs = fourier_coeffs / fc_scale
-fourier_coeffs, frequencies = src.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
+fourier_coeffs, frequencies = kgae.deniell(fourier_coeffs, frequencies, m_for_deniell_smoothing=7)
 fourier_coeffs = fourier_coeffs / fourier_coeffs.sum(dim=0)
 #powerspectra_ax.plot(frequencies.detach().numpy(), fourier_coeffs[:,0].detach().numpy(), color='gray', linestyle='-.', alpha=0.5, label=titles[6])
 
@@ -154,7 +154,7 @@ powerspectra_ax.spines['top'].set_color('none')
 
 map_axs = [ fig.add_subplot(gs[:30, :3], projection=ccrs.PlateCarree(central_longitude=180)), fig.add_subplot(gs[:30, 3:6], projection=ccrs.PlateCarree(central_longitude=180)), fig.add_subplot(gs[:30, 6:], projection=ccrs.PlateCarree(central_longitude=180)) ] 
 
-coeff_da, r2_da, residuals_da, p_values_da = src.multivariate_linear_regression_with_significance(autoencoder_data, ssta.transpose('time', 'lon', 'lat'))
+coeff_da, r2_da, residuals_da, p_values_da = kgae.multivariate_linear_regression_with_significance(autoencoder_data, ssta.transpose('time', 'lon', 'lat'))
 
 
 map_axs = [ fig.add_subplot(gs[:30, :3], projection=ccrs.PlateCarree(central_longitude=180)), fig.add_subplot(gs[:30, 3:6], projection=ccrs.PlateCarree(central_longitude=180)), fig.add_subplot(gs[:30, 6:], projection=ccrs.PlateCarree(central_longitude=180)) ] 

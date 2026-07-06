@@ -1,0 +1,64 @@
+# Manual center-of-action boxes for analysis/center_action_bimodality_check.py.
+#
+# Bounds are in the repository SST longitude convention used by the NetCDF:
+# lon=0 is the dateline, lon=90 is 90W, and lon=-60 is 120E. The map panels
+# label these as real geographic longitudes, but the script reads the bounds
+# below in the NetCDF coordinate system.
+#
+# These boxes were chosen after visually inspecting the final paper maps
+# (final_scripts/alphas_betas_final.png and scripts/alphas_and_composites_final.png)
+# and sanity-checking smoothed extrema in scripts/cache_alpha_and_linear_composites.nc
+# alpha_mean. They are fixed center-of-action boxes, not spatial projections.
+modes:
+  Decadal:
+    latent_mode: Decadal
+    tendency_mode: 5
+    positive_boxes:
+      # Thin equatorial warm lobe just west of the dateline.
+      - lat_min: -5.5
+        lat_max: 5.5
+        lon_min: -35.5
+        lon_max: -5.5
+      # North Pacific / southern Alaska coastal positive lobe.
+      - lat_min: 45.5
+        lat_max: 60.5
+        lon_min: 0.5
+        lon_max: 45.5
+    negative_boxes:
+      - lat_min: 25.5
+        lat_max: 45.5
+        lon_min: -35.5
+        lon_max: 25.5
+  Interannual:
+    latent_mode: Interannual
+    tendency_mode: 4
+    positive_boxes:
+      # Narrow equatorial ENSO-like lobe extending toward South America.
+      - lat_min: -5.5
+        lat_max: 5.5
+        lon_min: 0.5
+        lon_max: 100.5
+    negative_boxes:
+      - lat_min: 24.5
+        lat_max: 44.5
+        lon_min: 11.5
+        lon_max: 51.5
+  Quasibiennial:
+    latent_mode: Quasibiennial
+    tendency_mode: 3
+    positive_boxes:
+      # Narrow equatorial eastern-Pacific lobe.
+      - lat_min: -5.5
+        lat_max: 5.5
+        lon_min: 30.5
+        lon_max: 100.5
+      # Positive lobe just south of the Alaska/Canada coast.
+      - lat_min: 45.5
+        lat_max: 60.5
+        lon_min: 15.5
+        lon_max: 60.5
+    negative_boxes:
+      - lat_min: 28.5
+        lat_max: 48.5
+        lon_min: -25.5
+        lon_max: 15.5

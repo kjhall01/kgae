@@ -8,11 +8,7 @@ import sys, os
 import matplotlib.pyplot as plt
 from torch.nn import functional as F
 from pathlib import Path 
-
-srcdir = "."
-srcdir = os.path.abspath(srcdir)
-sys.path.insert(0,srcdir)
-import src
+import kgae
 
 # open ERA5 training data 
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(None, pd.Timestamp(2014,12,31)))
@@ -58,8 +54,8 @@ for random_seed in range(N):
 
         # recombine the other four folds to calculate trend and climatology 
         train = xr.concat([splits[j] for j in range(5) if j != split ], 'time').sortby('time')
-        train, fit, gwm, p  = src.global_detrend(train, deg=2)
-        train, monthly_clim = src.remove_climo(train)
+        train, fit, gwm, p  = kgae.global_detrend(train, deg=2)
+        train, monthly_clim = kgae.remove_climo(train)
 
         # remove trend and climatology (that was calculated on training set) from validation data
         val = splits[split]
@@ -126,7 +122,7 @@ for random_seed in range(N):
             stoutf = open(out_dir / 'terminal_output.txt', 'w') 
 
             # instantiate NN 
-            oae = src.Network(
+            oae = kgae.Network(
                 lr=1e-3,
                 activation=nn.Tanh,
                 verbose=True,
@@ -264,8 +260,8 @@ for random_seed in range(N):
             all_recurse_outdir = Path(expdir_name) / f'split{split}'
             if recursion == 0: 
                 ersst1 = xr.open_dataset(f'~/Desktop/Data/ersstv5/ersstv5.pacific.sst.185401-202501.nc').sst#.sel(lat=slice(-20,20,None)) # * (sst.mean('time') / sst.mean('time')) ##.sortby('lat').sortby('lon')
-                ersst, fit, gwm, p  = src.global_detrend(ersst1,deg=2)
-                ersst, monthly_clim = src.remove_climo(ersst)
+                ersst, fit, gwm, p  = kgae.global_detrend(ersst1,deg=2)
+                ersst, monthly_clim = kgae.remove_climo(ersst)
                 ersst.name = 'sst'
                 ersst.to_netcdf(all_recurse_outdir / "ersstv5.pacific.recursion0.nc")
 
@@ -294,8 +290,8 @@ for random_seed in range(N):
             for mem in range(21):
                 if recursion == 0:
                     e3sm1 = xr.open_dataset(f'~/Desktop/Data/e3sm/e3sm.historical.185001-201412.m0{mem:>02}.global.sst.nc').sst.sel(time=slice(sst.time[0], None))#.sel(lat=slice(-20,20,None)) # * (sst.mean('time') / sst.mean('time'))
-                    e3sm, fit, gwm, p  = src.global_detrend(e3sm1,deg=2)
-                    e3sm, monthly_clim = src.remove_climo(e3sm)
+                    e3sm, fit, gwm, p  = kgae.global_detrend(e3sm1,deg=2)
+                    e3sm, monthly_clim = kgae.remove_climo(e3sm)
                     e3sm.name = 'sst'
                     e3sm.to_netcdf(all_recurse_outdir / f"e3sm.mem{mem}.pacific.recursion0.nc")
 
@@ -324,8 +320,8 @@ for random_seed in range(N):
                 if recursion == 0:
                     e3sm1 = xr.open_dataset(f'~/Desktop/Data/cesm-le/cesm.member0{mem:>02}.global.1p0x1p0.sst.185001-201412.nc').sst#.sel(lat=slice(-20,20,None))
                     e3sm1 = e3sm1.assign_coords({'time': [pd.Timestamp(iii.year, iii.month, iii.day) for iii in e3sm1.coords['time'].values]}).sel(time=slice(sst.time[0], None)) # * (sst.mean('time') / sst.mean('time'))
-                    e3sm, fit, gwm, p  = src.global_detrend(e3sm1,deg=2)
-                    e3sm, monthly_clim = src.remove_climo(e3sm)
+                    e3sm, fit, gwm, p  = kgae.global_detrend(e3sm1,deg=2)
+                    e3sm, monthly_clim = kgae.remove_climo(e3sm)
                     e3sm.name = 'sst'
                     e3sm.to_netcdf(all_recurse_outdir / f"cesm.mem{mem}.pacific.recursion0.nc")
 

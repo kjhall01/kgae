@@ -4,7 +4,7 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt 
 import numpy as np 
 import torch 
-import src 
+import kgae 
 import pandas as pd 
 from sklearn.decomposition import PCA 
 from scipy.stats import gaussian_kde
@@ -35,8 +35,8 @@ def get_val_mses(recursion1=0, mode=''):
 
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(None, pd.Timestamp(2014,12,31)))
 sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})
-ssta, trend, gwm, p = src.global_detrend(sst,deg=2)
-ssta, monthly_clim = src.remove_climo(ssta)
+ssta, trend, gwm, p = kgae.global_detrend(sst,deg=2)
+ssta, monthly_clim = kgae.remove_climo(ssta)
 
 modes = [ '.without.Decadal', '.without.Interannual', '.without.Quasibiennial', '.without.HF1', '.without.HF2']
 base_mses = get_val_mses(recursion1=0, mode='')

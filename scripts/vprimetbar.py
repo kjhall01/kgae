@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np 
 from pathlib import Path
 import matplotlib.pyplot as plt
-import src 
+import kgae 
 import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
@@ -24,8 +24,8 @@ tc2 = xr.concat(tc2, 'initialization').assign_coords({'initialization': np.arang
 titles = ['Decadal', 'Interannual', 'Quasibiennial']
 
 sst = xr.open_dataset('~/Desktop/Data/oras5/oras5.iso20.195801-201412.nc').iso20.sel(lat=slice(-16,16))
-ssta, fit, gwm, p  = src.global_detrend(sst, deg=2)
-ssta , mc = src.remove_climo(ssta)
+ssta, fit, gwm, p  = kgae.global_detrend(sst, deg=2)
+ssta , mc = kgae.remove_climo(ssta)
 tc2 = tc2.sel(time=slice('1958-01-01', '2014-12-31'))
 
 yaxis = "Interannual"
@@ -113,8 +113,8 @@ for i in range(9):
 print(sum(ns) / np.sum(composite_selection | ~composite_selection))
 
 sst2 = xr.open_dataset('~/Desktop/Data/oras5/oras5.interior_transport.195801-201412.nc').interior_transport * 4.26
-ssta2, fit, gwm, p  = src.global_detrend(sst2, deg=2)
-ssta2 , mc = src.remove_climo(ssta2)
+ssta2, fit, gwm, p  = kgae.global_detrend(sst2, deg=2)
+ssta2 , mc = kgae.remove_climo(ssta2)
 
 fig, ax = plt.subplots(3, 3, figsize=(10, 8))
 cmpsts = xr.concat(cmpsts, 'type').rolling(lon=3, center=True).mean()
@@ -128,8 +128,8 @@ for i in range(3):
 
 
 sst = xr.open_dataset('~/Desktop/Data/oras5/oras5.interior_transport.195801-201412.nc').interior_transport.sel(lat=slice(-16,16)) * 4.26 / (111000**2) * 86400 * 365
-ssta, fit, gwm, p  = src.global_detrend(sst, deg=2)
-ssta , mc = src.remove_climo(ssta)
+ssta, fit, gwm, p  = kgae.global_detrend(sst, deg=2)
+ssta , mc = kgae.remove_climo(ssta)
 
 cmpsts, masks = [], [] 
 ns = [] 

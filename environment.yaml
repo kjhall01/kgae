@@ -1,0 +1,45 @@
+name: kgae
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+
+dependencies:
+  - python=3.11
+  - pip
+
+  # Core numerics / ML
+  - pytorch>=2.2
+  # Uncomment this on a Linux machine with an NVIDIA GPU.
+  # Leave it commented for CPU-only installs or Apple Silicon.
+  # - pytorch-cuda=12.1
+  - numpy
+  - scipy
+  - pandas
+  - scikit-learn
+  - optuna
+
+  # Climate / array IO
+  - xarray
+  - dask
+  - bottleneck
+  - netcdf4
+  - h5netcdf
+  - cftime
+
+  # Plotting / maps
+  - matplotlib
+  - cartopy
+  - shapely
+  - pyproj
+
+  # Notebook workflow
+  - jupyter
+  - jupyterlab
+  - notebook
+  - ipykernel
+  - statsmodels 
+
+  # Nice-to-haves
+  - tqdm
+  - ipywidgets
