@@ -14,7 +14,7 @@ run='basin.goodtest'
 
 def get_val_mses(recursion1=0, mode=''):
     print('getting mode: ', mode)
-    results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+    results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
     mses = []
     for init in range(N):

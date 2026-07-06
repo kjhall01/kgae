@@ -232,7 +232,7 @@ for random_seed in range(N):
                 training_data[_] = training_data[_] - dec_train.detach().numpy()
 
 
-            # encode and decode and save test data  for ... something later 
+            # Encode, decode, and save test data for downstream analysis.
             test_data = torch.tensor(test_data, dtype=torch.float32)
             enc = oae.encoder(test_data)
             decoded = oae.decoder(enc)
@@ -351,7 +351,6 @@ for random_seed in range(N):
             for mem in range(21):
                 Path(all_recurse_outdir / f"e3sm.mem{mem}.pacific.recursion{recursion}.nc").unlink()
                 Path(all_recurse_outdir / f"cesm.mem{mem}.pacific.recursion{recursion}.nc").unlink()
-
 
 
 

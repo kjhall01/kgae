@@ -12,7 +12,7 @@ N=50
 run='basin.goodtest'
 recursion2 = 0 # 0 for first recursion, 1 for second recursion, etc.
 nrecursions = 3 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc3 = []
 for init in range(N):
@@ -178,5 +178,5 @@ for i , title in enumerate(titles):
 
 cbar_ax = fig.add_subplot(gs[28:29,1:-1])
 fig.colorbar(p, cax=cbar_ax, **{'label': 'SST Anomaly (K)', 'orientation': 'horizontal', 'shrink': 0.2, 'extend': 'both'})
-plt.savefig('/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure1.png', dpi=1000)
+plt.savefig('~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure1.png', dpi=1000)
 plt.show()

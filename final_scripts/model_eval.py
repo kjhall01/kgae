@@ -185,7 +185,7 @@ if __name__ == "__main__":
     run='basin.goodtest'
 
     if not Path('era5.latents.v1.nc').is_file():
-        results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+        results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
         hs  = []
         tc3 = []
@@ -215,7 +215,7 @@ if __name__ == "__main__":
                 tc5 = []
                 for member in range(21):
                     print(f'rs{rs} split{split} member{member}')
-                    ds = xr.open_dataset(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/e3sm/e3sm.mem{member}.encodings{split}.nc')
+                    ds = xr.open_dataset(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/e3sm/e3sm.mem{member}.encodings{split}.nc')
                     tc5.append(ds.encodings)
                 tc5 = xr.concat(tc5, 'member').assign_coords({'member': np.arange(21)})
                 tc.append(tc5)
@@ -234,7 +234,7 @@ if __name__ == "__main__":
                 tc5 = []
                 for member in range(21):
                     print(f'rs{rs} split{split} member{member}')
-                    ds = xr.open_dataset(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/cesm/cesm.mem{member}.encodings{split}.nc')
+                    ds = xr.open_dataset(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/cesm/cesm.mem{member}.encodings{split}.nc')
                     tc5.append(ds.encodings)
                 tc5 = xr.concat(tc5, 'member').assign_coords({'member': np.arange(21)})
                 tc.append(tc5)

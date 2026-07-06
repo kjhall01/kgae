@@ -11,7 +11,7 @@ overwrite = True
 approx_desired_res = 1.0
 basin = 'pacific'
 
-mask = getattr(xr.open_dataset('/Users/kylehall/Desktop/scratch/data/prod/seamask.nc'), basin) 
+mask = getattr(xr.open_dataset(Path.home() / 'Desktop/scratch/data/prod/seamask.nc'), basin)
 mask = mask.assign_coords({'lon': [i - 360 if i >= 180 else i for i in mask.coords['lon'].values ] }).sortby('lon').sortby('lat') 
 mask = mask.interp({
     'lon': np.linspace(mask.coords['lon'].values.min(), mask.coords['lon'].values.max(), int(mask.coords['lon'].values.shape[0]*(1/approx_desired_res))),
@@ -51,7 +51,6 @@ for year in range(1940, 2024):
     #plt.show()
 
     pacific.to_netcdf(f'era5.{year}/pacific.nc')
-
 
 
 

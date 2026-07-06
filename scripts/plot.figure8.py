@@ -20,7 +20,7 @@ M=21
 mtall=25
 run='basin.goodtest'
 vmax = 0.003
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 hs  = []
 tc3 = []
@@ -137,7 +137,7 @@ for rs in range(N):
     for split in range(5):
         for member in range(M):
             print(f'rs{rs} split{split} member{member}')
-            ds = xr.open_dataset(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/e3sm/e3sm.mem{member}.encodings{split}.nc')
+            ds = xr.open_dataset(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/e3sm/e3sm.mem{member}.encodings{split}.nc')
             plt.figure()
             h, xe, ye, im = plt.hist2d(ds.encodings.sel(mode='Decadal').values, ds.encodings.sel(mode='Interannual').values, cmap="magma_r", bins=45, range=[[-5,5], [-5,5]], density=True)
             h = h / np.nansum(h)
@@ -233,7 +233,7 @@ for rs in range(N):
     for split in range(5):
         for member in range(M):
             print(f'rs{rs} split{split} member{member}')
-            ds = xr.open_dataset(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/cesm/cesm.mem{member}.encodings{split}.nc')
+            ds = xr.open_dataset(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014/rs{rs}/split{split}/recursion0/cesm/cesm.mem{member}.encodings{split}.nc')
             plt.figure()
             h, xe, ye, im = plt.hist2d(ds.encodings.sel(mode='Decadal').values, ds.encodings.sel(mode='Interannual').values, cmap="magma_r", bins=45, range=[[-5,5], [-5,5]], density=True)
             h = h / np.nansum(h)
@@ -324,6 +324,6 @@ circle_axis3.contourf(0.5*xe[1:] + 0.5*xe[:-1], 0.5*ye[1:] + 0.5*ye[:-1], mask, 
 
 
 plt.tight_layout()
-plt.savefig('/Users/kylehall/Desktop/hall_molina_2025.figure8.png', dpi=300, bbox_inches='tight')
+plt.savefig('~/Desktop/hall_molina_2025.figure8.png', dpi=300, bbox_inches='tight')
 plt.show()
 

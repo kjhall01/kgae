@@ -8,7 +8,7 @@ import cartopy.crs as ccrs
 import matplotlib.pyplot as plt
 import statsmodels.api as sm
 
-results_base = Path('/Users/kylehall/Desktop/spectral_modes/final.crossvalidated.1940-2014')
+results_base = Path('~/Desktop/spectral_modes/final.crossvalidated.1940-2014')
 
 # plot crossvalidtated timeseries 
 N=100

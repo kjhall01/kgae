@@ -121,7 +121,7 @@ def main():
                         n_fixed += 1
 
     # -------- full-model fixes (step = 5) --------
-    # You did not save full_train_references.nc, so we need a ref time vector.
+    # full_train_references.nc is unavailable, so use a reference time vector.
     # Best available proxy: use fold0/train_references.nc from seed0 (same split),
     # because "train" for the full model is concat of folds 0..4 and should have same time coords
     # as the split's training period. If that file is missing, we skip.

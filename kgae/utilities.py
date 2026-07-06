@@ -112,7 +112,7 @@ def remove_directory(path):
         print(f"Directory does not exist or is not a directory: {path}")
 
 def open_oni():
-    return xr.open_dataset('/Users/kylehall/Desktop/Data/PSL/psl.oni.195001-202407.nc').ONI
+    return xr.open_dataset('~/Desktop/Data/PSL/psl.oni.195001-202407.nc').ONI
 
 
 def open_npi1():
@@ -131,7 +131,7 @@ def open_npi1():
     return npi
 
 def open_npi():
-    return xr.open_dataset('/Users/kylehall/Desktop/Data/PSL/npi.nc').npi
+    return xr.open_dataset('~/Desktop/Data/PSL/npi.nc').npi
 
 def open_pdo1():
     labels = ['PSL Ensemble PDO', 'PSL ERSSTv5 PDO', "PSL HadISST 1.1 PDO", "PSL COBE2 PDO"]
@@ -158,7 +158,7 @@ def open_pdo1():
     return xr.concat(tc, 'dataset').assign_coords({'dataset': labels})
 
 def open_pdo():
-    return xr.open_dataset('/Users/kylehall/Desktop/Data/PSL/pdo.nc').pdo
+    return xr.open_dataset('~/Desktop/Data/PSL/pdo.nc').pdo
 
   
 

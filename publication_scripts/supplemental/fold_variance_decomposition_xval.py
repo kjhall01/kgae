@@ -36,7 +36,7 @@ from scipy.stats import gaussian_kde
 # USER SETTINGS
 # -----------------------------
 EXPERIMENT = "large-ensemble-2-1940-2014"
-MODEL_GLOB_CV = f"/Users/kylehall/Desktop/kgae/final_scripts/{EXPERIMENT}/seed*/split*/model.pkl"
+MODEL_GLOB_CV = f"~/Desktop/kgae/final_scripts/{EXPERIMENT}/seed*/split*/model.pkl"
 
 ERA5_SST_PATH = "~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc"
 TRAINING_PERIOD = ("1940-01-01", "2014-12-31")

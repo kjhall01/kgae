@@ -36,7 +36,7 @@ In all cases, the latent-coordinate PDFs should be described as PDFs of learned 
 - Selected `sst` as the sst variable.
 - Prepared SSTA with the same steps as kgae.global_detrend(..., deg=2) followed by kgae.remove_climo(...): subtract the cosine-latitude-weighted Pacific mean quadratic trend, then subtract the monthly climatology over the loaded/common period.
 - Selected `alpha_mean` as the patterns variable.
-- Loaded top-row mode patterns from `/Users/kylehall/Desktop/codex-dev/kgae/scripts/cache_alpha_and_linear_composites.nc`.
+- Loaded top-row mode patterns from `~/Desktop/codex-dev/kgae/scripts/cache_alpha_and_linear_composites.nc`.
 - Decadal: aligned by exact datetime coordinates over 900 samples (1940-01-01 to 2014-12-01).
 - Interannual: aligned by exact datetime coordinates over 900 samples (1940-01-01 to 2014-12-01).
 - Quasibiennial: aligned by exact datetime coordinates over 900 samples (1940-01-01 to 2014-12-01).

@@ -208,5 +208,5 @@ if __name__ == "__main__":
     cbar_ax = fig.add_axes([0.15, 0.15, .70, 0.02]) 
     fig.colorbar(cp, cax=cbar_ax, **{'label': 'Pearson Correlation', 'orientation': 'horizontal', 'pad': 0.1, 'shrink': 0.5, 'ticks':np.linspace(-1,1, 6), 'extend': 'both'})
     plt.tight_layout(rect=[0, 0.15, 1, 1])
-    #plt.savefig("/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure3.png", dpi=1000)
+    #plt.savefig("~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure3.png", dpi=1000)
     plt.show()

@@ -15,7 +15,7 @@ vmax = 1.5
 caption = 'SST (K)'
 confidence_level = 0.67
 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc3 = []
 for init in range(N):
@@ -256,5 +256,5 @@ cbar_ax =fig.add_subplot(gs[100:102, :])
 
 fig.colorbar(cp, cax=cbar_ax, **{'label': 'Pearson Correlation', 'orientation': 'horizontal', 'pad': 0.1, 'shrink': 0.5, 'ticks':np.linspace(-1,1, 6), 'extend': 'both'})
 plt.tight_layout(rect=[0, 0.15, 1, 1])
-plt.savefig(f'/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure7.{var}.png', dpi=1000)
+plt.savefig(f'~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure7.{var}.png', dpi=1000)
 plt.show()

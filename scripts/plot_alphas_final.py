@@ -516,7 +516,7 @@ for ci, mi in enumerate(tendency_modes):
 
     ax.set_title("")
 
-    # ✅ NEW: regression badge goes on the COMPOSITE panel
+    # Regression badge goes on the composite panel.
     m_badge, b_badge, r2_badge = reg_stats[int(mi)]["badge"]
     ax.text(
         0.02, 0.02,

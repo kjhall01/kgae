@@ -8,7 +8,7 @@ import os
 import kgae
 
 # ---- edit these ----
-experiment = "/Users/kylehall/Desktop/kgae/scripts/kgvae_cv1940-2014"  # root: seed*/split*/model.pkl
+experiment = "~/Desktop/kgae/scripts/kgvae_cv1940-2014"  # root: seed*/split*/model.pkl
 n_ensemble = 30
 splits = [0, 1, 2, 3, 4]         # folds to average over
 

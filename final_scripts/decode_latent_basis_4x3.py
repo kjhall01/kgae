@@ -47,7 +47,7 @@ import cartopy.feature as cfeature
 # -----------------------------
 # USER SETTINGS
 # -----------------------------
-MODEL_GLOB = "/Users/kylehall/Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl"
+MODEL_GLOB = "~/Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl"
 
 ERA5_SST_PATH = "~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc"
 TRAINING_PERIOD = ("1940-01-01", "2014-12-31")

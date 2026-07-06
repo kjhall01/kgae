@@ -361,7 +361,7 @@ for random_seed in range(100):
     #alpha_lo, alpha_hi, alpha_sig = kgae.bootstrap_ci(alpha_boot)
     #beta_lo, beta_hi, beta_sig = kgae.bootstrap_ci(beta_boot)
 
-    # we now save "percent less than zero" and calculate whatever ci we ant
+    # Save "percent less than zero" and calculate the requested CI.
     alpha_sig = (alpha_boot < 0).mean('boot', skipna=False).where(np.isfinite(alpha_boot.mean('boot')), other=np.nan)
     beta_sig = (beta_boot < 0).mean('boot', skipna=False).where(np.isfinite(beta_boot.mean('boot')), other=np.nan)
     alpha, beta, r2_train_boot, r2_cv_da, r2_test_boot = kgae.regress_tendencies(xval_latents.sel(mode=modes_to_examine), xval_tendencies.sel(mode=modes_to_examine))
@@ -381,5 +381,4 @@ for random_seed in range(100):
         xval_test_references = xr.concat(xval_test_references, 'fold').sortby('fold')
         xval_test_references = xval_test_references.unstack('feature').sortby(['time', 'fold', 'lat', 'lon'])
         xval_test_references.to_netcdf(run_dir / 'test_references.nc' )
-
 

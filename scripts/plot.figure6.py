@@ -11,7 +11,7 @@ from sklearn.decomposition import PCA
 N=50
 run='tropical'
 def get_recursion_decoding(recursion1):
-    results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+    results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
     tc3 = 0
     for init in range(N):
@@ -30,7 +30,7 @@ def get_recursion_decoding(recursion1):
     tc3 = tc3 / N #xr.concat(tc3, 'initialization').assign_coords({'initialization': np.arange(N)}).drop('number')
     return tc3.mean('recursion')
 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 tosel = ['Decadal', 'Interannual', 'Quasibiennial']
 tc3 = []
 for init in range(N):
@@ -279,5 +279,5 @@ lagcor_ax.text(nlags, -2, "Tertiary follows Primary", ha='right', va='top', font
 
 lagcor_ax.set_title('Primary - Tertiary Lag Cross Correlation')
 lagcor_ax.set_title('e)', loc='left', fontweight='bold')
-plt.savefig('/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure6.png', dpi=1000)
+plt.savefig('~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure6.png', dpi=1000)
 plt.show()

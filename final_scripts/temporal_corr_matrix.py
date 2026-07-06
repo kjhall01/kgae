@@ -134,7 +134,7 @@ if __name__ == "__main__":
     import xarray as xr 
     import kgae 
 
-    modes = xr.open_dataset('/Users/kylehall/Desktop/kgae/final_scripts/climate_mode_indices.nc').magnitude
+    modes = xr.open_dataset('~/Desktop/kgae/final_scripts/climate_mode_indices.nc').magnitude
     latents = kgae.open_latents('xval', experiment='large-ensemble-2-1940-2014', n_ensemble=100).mean('seed')#['__xarray_dataarray_variable__']
     latents = latents.sel(mode=[5,4,3]).assign_coords({'mode': ['DM', 'IA', 'QB']})
     modes = xr.concat([latents, modes], 'mode')

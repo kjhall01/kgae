@@ -190,7 +190,7 @@ def plot_alpha_beta_maps(
     cax_beta_width = beta_ax_end - beta_ax_start
 
     cbar_height = 0.03
-    cbar_bottom = height  # e.g., -0.1 or whatever you use
+    cbar_bottom = height  # e.g., -0.1
 
     cax_alpha = fig.add_axes([cax_alpha_left, cbar_bottom, cax_alpha_width, cbar_height])
     cax_beta  = fig.add_axes([cax_beta_left, cbar_bottom, cax_beta_width, cbar_height])

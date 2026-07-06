@@ -19,7 +19,7 @@ add_wind = True
 wind_vmax= 3
 mask_sig=True
 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc3 = []
 for init in range(N):
@@ -115,11 +115,11 @@ elif var == 'u10':
 
 if var == 'wind' or add_wind: 
     u10 = xr.open_dataset(f'~/Desktop/Data/era5/era5.u10.pacific.1x1.1940-2023.nc').u10.sel(time=slice(None, pd.Timestamp(2014,12,31)))
-    #u10 = xr.open_dataset('/Users/kylehall/Desktop/Data/oras5/oras5.u.195801-201412.nc').sel(depthu=slice(None, 5)).mean('depthu').u.sel(time=slice(None, pd.Timestamp(2014,12,31)))
+    #u10 = xr.open_dataset('~/Desktop/Data/oras5/oras5.u.195801-201412.nc').sel(depthu=slice(None, 5)).mean('depthu').u.sel(time=slice(None, pd.Timestamp(2014,12,31)))
     u10a, fit, gwm, p  = kgae.global_detrend(u10, deg=2)
     u10a , mc = kgae.remove_climo(u10a) 
     
-    #v10 = xr.open_dataset('/Users/kylehall/Desktop/Data/oras5/oras5.v.195801-201412.nc').sel(depthv=slice(None, 5)).mean('depthv').v.sel(time=slice(None, pd.Timestamp(2014,12,31)))
+    #v10 = xr.open_dataset('~/Desktop/Data/oras5/oras5.v.195801-201412.nc').sel(depthv=slice(None, 5)).mean('depthv').v.sel(time=slice(None, pd.Timestamp(2014,12,31)))
 
     v10 = xr.open_dataset(f'~/Desktop/Data/era5/era5.v10.pacific.1x1.1940-2023.nc').v10.sel(time=slice(None, pd.Timestamp(2014,12,31)))
     v10a, fit, gwm, p  = kgae.global_detrend(v10, deg=2)
@@ -848,5 +848,5 @@ ax[2,0].text(0.5, -0.1, 'Negative ' + x, va='center', ha='center', transform=ax[
 cbar_ax = fig.add_axes([0.15, 0.1, .70, 0.02]) 
 fig.colorbar(p1, cax=cbar_ax, **{'label': caption, 'orientation': 'horizontal', 'pad': 0.1, 'shrink': 0.5, 'extend': 'both'})
 plt.tight_layout( rect=[0, 0.15, 1, 1])
-plt.savefig(f'/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure4.{var}.png', dpi=1000)
+plt.savefig(f'~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure4.{var}.png', dpi=1000)
 plt.show()

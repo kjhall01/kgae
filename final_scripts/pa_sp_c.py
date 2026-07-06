@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import glob
+import os
 import pickle
 from pathlib import Path
 from dataclasses import dataclass
@@ -19,32 +20,39 @@ EXPERIMENT = "./large-ensemble-2-1940-2014"   # for regression + composites (edi
 N_ENSEMBLE_REG = 100                            # used by kgae.open_alphabetas (edit)
 N_ENSEMBLE_LATENTS = 100                      # used by kgae.open_latents (edit)
 
-# Decoder-probe models live on disk
-MODEL_GLOB = "/Users/kylehall/Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl"
-ERA5_SST_PATH = "~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc"
+# Decoder-probe models live on disk. Override these with environment variables
+# when running from a different local data layout.
+MODEL_GLOB = os.environ.get(
+    "KGAE_MODEL_GLOB",
+    str(Path.home() / "Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl"),
+)
+ERA5_SST_PATH = os.environ.get(
+    "KGAE_ERA5_SST_PATH",
+    str(Path.home() / "Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc"),
+)
 TRAINING_PERIOD = ("1940-01-01", "2014-12-31")
 LATENT_DIM = 5
 
 # Modes to compare (3-mode case)
-MODES = [5, 4, 3]  # (Decadal, Interannual, Quasibiennial) by your convention
+MODES = [5, 4, 3]  # Decadal, Interannual, Quasibiennial ordering for this analysis
 MODE_TITLES = ["Decadal", "Interannual", "Quasibiennial"]
 
 # --- masking / significance
 MASK_MODE = "none"           # "none" or "sig_intersection"
 USE_COSLAT_WEIGHTS = True
 
-# Regression sig bootstrap settings (mirrors plot_alpha_betas.py) :contentReference[oaicite:3]{index=3}
+# Regression sig bootstrap settings, matching plot_alpha_betas.py.
 REG_SIG_N_BOOT = 200
 REG_SIG_CI = 0.90
 REG_SIG_DIM = "seed"
 
-# Composite bootstrap settings (mirrors composites.py, but note it uses quantiles currently set to [0.25,0.5,0.75] in your file) :contentReference[oaicite:4]{index=4}
+# Composite bootstrap settings, matching composites.py.
 COMP_N_BOOT = 200
 COMP_BLOCK_LEN = 12
 COMP_SIGMA_MULT = 1.0
 COMP_RNG_SEED = 123
 
-# Probe bootstrap settings (mirrors decode_latent_basis_4x3.py) :contentReference[oaicite:5]{index=5}
+# Probe bootstrap settings, matching decode_latent_basis_4x3.py.
 PROBE_N_BOOT = 300
 PROBE_RNG_SEED = 123
 PROBE_A_STEP = 1.0
@@ -157,14 +165,14 @@ def bootstrap_pct_lt_zero(
     return pct_lt_0
 
 def reg_sig_mask_from_pct(pct_lt_0: xr.DataArray, ci: float) -> xr.DataArray:
-    # matches your masking criterion in plot_alpha_betas.py :contentReference[oaicite:6]{index=6}
+    # Matches the masking criterion in plot_alpha_betas.py.
     return (pct_lt_0 > ci + (1 - ci) / 2) | (pct_lt_0 < (1 - ci) / 2)
 
 def load_regression_fields() -> Tuple[Dict[str, xr.DataArray], Dict[str, xr.DataArray]]:
     import kgae  # local project
 
     alpha_full, beta_full = kgae.open_alphabetas("xval", experiment=EXPERIMENT, n_ensemble=N_ENSEMBLE_REG)
-    # mirror your plotting reductions: mean over seed & fold for point estimate :contentReference[oaicite:7]{index=7}
+    # Match plotting reductions: mean over seed and fold for point estimate.
     alpha_mean = alpha_full.mean("seed").mean("fold")
     beta_mean  = beta_full.mean("seed").mean("fold")
 
@@ -225,7 +233,7 @@ def composite_mean(field: xr.DataArray, mask_time: np.ndarray) -> Optional[xr.Da
 def composite_metrics_once(
     ssta: xr.DataArray, z: xr.DataArray, i_mode: int, other_modes: List[int], sigma_mult: float = 1.0
 ) -> Tuple[Optional[xr.DataArray], Optional[xr.DataArray]]:
-    # mirrors composites.py :contentReference[oaicite:8]{index=8}
+    # Matches composites.py.
     zi = z.sel(mode=i_mode).values
     sig_i = _robust_sigma(zi)
     if not np.isfinite(sig_i):

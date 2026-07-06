@@ -19,7 +19,7 @@ add_wind = True
 wind_vmax= 3
 
 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc3 = []
 for init in range(N):
@@ -430,5 +430,5 @@ ax[1,0].text(0.5, -0.1, 'Negative ' + x, va='center', ha='center', transform=ax[
 cbar_ax = fig.add_axes([0.15, 0.1, .70, 0.02]) 
 fig.colorbar(p1, cax=cbar_ax, **{'label': caption, 'orientation': 'horizontal', 'pad': 0.1, 'shrink': 0.5, 'extend': 'both'})
 plt.tight_layout( rect=[0, 0.15, 1, 1])
-plt.savefig(f'/Users/kylehall/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure4.{var}.png', dpi=1000)
+plt.savefig(f'~/Desktop/hall_molina_2025_final_figures/hall_molina_2025.figure4.{var}.png', dpi=1000)
 plt.show()

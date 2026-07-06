@@ -375,7 +375,7 @@ if __name__ == "__main__":
 #    betas = [betas.sel(tendency_mode=bt[0], predictor_mode=bt[1], drop=True).mean('fold') for bt in beta_ndxs]
 
     kgae_patterns = kgae.compute_foldmean_decoder_probes(
-        "/Users/kylehall/Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl",
+        "~/Desktop/kgae/final_scripts/large-ensemble-2-1940-2014/seed*/split*/model.pkl",
         era5_sst_path="~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc",
         training_period=("1940-01-01", "2014-12-31"),
         latent_dim=5,

@@ -13,7 +13,7 @@ N=50
 run='basin.goodtest'
 
 def get_val_mses(recursion1=0):
-    results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+    results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
     sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(None, pd.Timestamp(2014,12,31)))
     sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})
@@ -37,7 +37,7 @@ def get_val_mses(recursion1=0):
     return np.asarray(mses)
 
 def get_test_mses(recursion1=0):
-    results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+    results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
     sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(pd.Timestamp(2015,1,1), None))
     sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})

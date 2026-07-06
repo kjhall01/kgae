@@ -15,7 +15,7 @@ vmax = 1.5
 caption = 'SST (K)'
 confidence_level = 0.67
 
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc3 = []
 for init in range(N):
@@ -33,7 +33,7 @@ tc2 = xr.concat(tc3, 'initialization').assign_coords({'initialization': np.arang
 
 
 run = 'tropical'
-results_base = Path(f'/Users/kylehall/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
+results_base = Path(f'~/Desktop/spectral_modes/{run}.recursive.crossvalidated.1940-2014')
 
 tc4 = []
 for init in range(N):
