@@ -364,7 +364,7 @@ if __name__ == "__main__":
     alpha_modes = [5,4,3]
     beta_ndxs = [(5,5), (5,4), (4,4), (4,5)]
 
-    # Example loading (replace with your paths / variable names):
+    # Configured loading:
     clim_pat = xr.open_dataset("climate_mode_patterns.nc")["pattern"]   # (mode,lat,lon)
     clim_ts  = xr.open_dataset("climate_mode_indices.nc")["magnitude"]   # (mode,time)
     
@@ -403,7 +403,7 @@ if __name__ == "__main__":
     tab_np   = make_table(df, metric="pat_corr", region="north_pacific")
 
 
-    # Example usage:
+    # Script entry point:
     panelA = df_to_latex_panel(tab_full,   "Panel A: Full basin")
     panelB = df_to_latex_panel(tab_trop,   "Panel B: Tropics (|lat|≤23°)")
     panelC = df_to_latex_panel(tab_np,     "Panel C: North Pacific (lat≥21°)")
@@ -424,5 +424,3 @@ if __name__ == "__main__":
     ])
 
     Path("kgae_climate_panels.tex").write_text(latex)
-
-

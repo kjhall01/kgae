@@ -21,5 +21,5 @@ if __name__ == "__main__":
     cond_ZTZ = cond_ztz_per_point(Z)
 
 
-    # If you prefer condition number of the design matrix X (time x mode):
+    # Alternative: condition number of the design matrix X (time x mode).
     cond_X = np.sqrt(cond_ZTZ).rename("cond_X") 

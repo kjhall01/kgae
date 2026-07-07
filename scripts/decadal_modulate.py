@@ -87,13 +87,13 @@ def sel_mode_1based(da, dim, m):
 
 # ------------------------------------------------------------
 # CONDITIONAL BACKGROUND + CONDITIONAL ENSO AMPLITUDE CHECKS
-# (paste after you already have: ssta (time,lat,lon), latents, cols,
-#  alphas/betas loaded, and sel_mode_1based defined)
+# Requires: ssta (time, lat, lon), latents, cols, alphas/betas,
+# and sel_mode_1based.
 # ------------------------------------------------------------
 import numpy as np
 import xarray as xr
 
-# --- pick which entry of cols is dec/int/qb in your convention ---
+# --- assign dec/int/qb entries from cols ---
 m_dec, m_int, m_qb = cols[0], cols[1], cols[2]   # e.g. [5,4,3]
 
 # ensemble-mean latents
@@ -118,7 +118,7 @@ ssta = ssta.transpose("time", "lat", "lon")
 # (2) |z_dec| high - |z_dec| low (amplitude/curvature-like contrast)
 # (3) alpha_dec                 (pure linear decadal sensitivity pattern)
 #
-# Assumes you already have:
+# Requires:
 #   - ssta: DataArray (time, lat, lon)
 #   - latents: DataArray (time, seed, mode)
 #   - alphas: DataArray (tendency_mode, lat, lon)
@@ -129,11 +129,11 @@ import xarray as xr
 import matplotlib.pyplot as plt
 import cartopy.crs as ccrs
 
-# --- configure which mode is decadal in your cols convention ---
+# --- configure which mode is decadal ---
 m_dec = cols[0]      # e.g. cols=[5,4,3] so dec=5
 k = 1.0              # threshold in sigma units for "high"
 other_sigma = 1.0    # gate other modes in cols to within +/- other_sigma*sigma; set None to disable
-smooth_sigma = None  # e.g. 1.5 if you want kgae.smooth_spatial; otherwise None
+smooth_sigma = None  # e.g. 1.5 for kgae.smooth_spatial; otherwise None
 
 # ensemble-mean latent + select modes
 zbar = latents.mean("seed").transpose("time", "mode")
@@ -175,7 +175,7 @@ diff_abshi = mean_abs_hi - mean_abs_lo
 # alpha_dec pattern
 alpha_dec = sel_mode_1based(alphas, "tendency_mode", m_dec).transpose("lat", "lon")
 
-# (optional) smoothing if you want it consistent with other figures
+# Optional smoothing for consistency with other figures.
 if smooth_sigma is not None:
     import kgae
     diff_posneg = kgae.smooth_spatial(diff_posneg, sigma_latlon=smooth_sigma)

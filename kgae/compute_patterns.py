@@ -208,7 +208,7 @@ def compute_foldmean_decoder_probes(
     era5_sst_path: str,
     training_period: Tuple[str, str],
     latent_dim: int = 5,
-    # mode labels are 1-based (as in your scripts)
+    # Mode labels are 1-based to match the analysis scripts.
     mode_dec: int = 5,
     mode_ia: int = 4,
     mode_qb: int = 3,
@@ -315,7 +315,7 @@ def compute_foldmean_decoder_probes(
         for q in quantities:
             arrs = per_seed[s].get(q, [])
             if len(arrs) == 0:
-                raise RuntimeError(f"Seed {s} is missing quantity {q}. Check your model_glob and mode settings.")
+                raise RuntimeError(f"Seed {s} is missing quantity {q}. Check model_glob and mode settings.")
             q_maps.append(np.stack(arrs, axis=0).mean(axis=0))  # (n_feat,)
 
         q_stack = np.stack(q_maps, axis=0)  # (quantity, n_feat)

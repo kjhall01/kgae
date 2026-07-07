@@ -99,7 +99,7 @@ add_arrow(
     fontsize=10
 )
 
-# Optional: a small legend / note box summarizing your key empirical finding
+# Optional: a small legend / note box summarizing the key empirical finding
 note = add_box(
     ax, (1.0, 9.1), 8.0, 0.7,
     "Empirical summary:  $\\beta_{\\mathrm{dec,dec}}\\;\\approx\\; a\\,\\alpha_{\\mathrm{int}}\\; +\\; c\\,\\beta_{\\mathrm{int,int}}$   (dominant ENSO subspace)",

@@ -49,7 +49,7 @@ def psd_based_mode_order(
     Parameters
     ----------
     psd_fm : np.ndarray
-        Power spectral density array with shape (freq, mode) (your stated convention).
+        Power spectral density array with shape (freq, mode).
         Values should be nonnegative.
     freqs : np.ndarray, optional
         Frequency coordinate with shape (freq,). If None, uses np.arange(nfreq),
@@ -58,7 +58,7 @@ def psd_based_mode_order(
         Axis corresponding to mode (default 1 for (freq, mode)).
     peak_weight, centroid_weight, bandwidth_weight, peak_to_total_weight : float
         Weights in the composite "frequency score". Higher score => higher-frequency mode.
-        If you want the simplest behavior, set only peak_weight=1 and others=0.
+        For simplest behavior, set only peak_weight=1 and others=0.
     eps : float
         Numerical stability.
 

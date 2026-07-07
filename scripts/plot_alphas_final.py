@@ -16,7 +16,7 @@ experiment = "kgvae_cv1940-2014"
 n_ensemble = 100
 
 # ----------------------------
-# Alpha plotting significance (your existing behavior)
+# Alpha plotting significance
 # ----------------------------
 sig_thresh_alpha = 0.99   # fraction of seeds significant for alpha fill
 sig_thresh_alpha_hatch = 1.1   # fraction of seeds significant for alpha hatch
@@ -33,7 +33,7 @@ comp_sig_thresh_hatch = 1.1
 n_boot_comp = 200
 ci_level_comp = 0.95      # seed-level bootstrap CI (95%)
 
-# composite definition settings (same as your linear comp)
+# Composite definition settings
 sigma_thresh_comp = 1.0
 neutral_thresh_comp = 1.0
 
@@ -275,7 +275,7 @@ else:
     alphas_sel = alphas.sel(tendency_mode=tendency_modes)
     alpha_sigs_sel = alpha_sigs.sel(tendency_mode=tendency_modes)
 
-    # IMPORTANT: compute composite on same latent subset you’re plotting
+    # Compute composite on the same latent subset used for plotting.
     latents_sel = latents.sel(mode=tendency_modes)
 
     # linear composite per seed (for plotting mean + regression)
@@ -296,7 +296,7 @@ else:
     comp_mean = comp_lin.mean("seed")
 
     # ----------------------------
-    # NEW: composite significance fraction across seeds using per-seed bootstrap @95%
+    # Composite significance fraction across seeds using per-seed bootstrap at 95%.
     # ----------------------------
     if "mode" in latents_sel.dims and "tendency_mode" not in latents_sel.dims:
         latents_sel = latents_sel.rename({"mode": "tendency_mode"})

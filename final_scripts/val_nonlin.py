@@ -9,7 +9,7 @@ OBS-composite Jacobian validation vs regression-predicted Jacobian.
     J_i_obs ≈ 0.5 * [ (X++ - X-+) / (zi++ - zi-+)  +  (X+- - X--) / (zi+- - zi--) ]
   (i.e., finite-difference derivative wrt z_i, averaged over z_j sign)
 
-- Regression: fit J_i_model(t) (your encoder-Jacobian / tendencies target) on TRAIN:
+- Regression: fit J_i_model(t) (encoder-Jacobian / tendencies target) on TRAIN:
     J_i_model(t,x) = alpha_i(x) + sum_p beta_i,p(x) * phi_p(t)
   where phi_p are quadratic predictors of z (default: zi^2, zj^2, zi*zj).
   Then predict regime-mean Jacobian maps on TEST and form the same stencil:
@@ -21,7 +21,7 @@ Outputs:
 - plots maps: [J_obs, J_reg, diff] for i and j
 - also plots interaction curvature B_ij (optional) using 4-corner stencil
 
-This is exactly your requested "composite observations against regression" validation.
+This validates composite observations against regression estimates.
 """
 
 import numpy as np
@@ -55,8 +55,8 @@ GATE_OTHER = False
 GATE_SIGMA = 1.5
 
 # regression predictors for J_i(z)
-# default matches what you were using: zi^2, zj^2, zi*zj
-PREDICTOR_SET = "quadratic_ij"   # or "all_zizj" if you want later
+# Default predictors: zi^2, zj^2, zi*zj
+PREDICTOR_SET = "quadratic_ij"   # or "all_zizj"
 
 central_longitude = 180
 proj = ccrs.PlateCarree(central_longitude=central_longitude)
@@ -222,7 +222,7 @@ def load_all():
     latents = latents * model.flip_signs
 
     # model Jacobian targets: tendencies = dD/dz_i evaluated along observed trajectory
-    # (your kgae.jacobian gives jacobian wrt encoded SST input; you have been using this as "tendencies")
+    # kgae.jacobian gives the Jacobian with respect to encoded SST input.
     tend = kgae.jacobian(model, torch.as_tensor(Xstk.values, dtype=torch.float32))
     tend = tend.detach().cpu().numpy()
 
@@ -379,12 +379,12 @@ def main():
 
     # Now build the same stencil combinations but applied to predicted J-quadrant maps.
     # For Ji(z): average over zj sign:
-    Ji_reg = 0.5 * (Ji_pp + Ji_pm)  # note: Ji_pp already "at ++", Ji_pm at "+-"; these are *values of Ji*
+    Ji_reg = 0.5 * (Ji_pp + Ji_pm)  # Ji_pp is "at ++", Ji_pm is at "+-"; these are values of Ji.
     Ji_reg_alt = stencil_J_from_quadrants(
-        # If you prefer using predicted *D* fields you could do that,
+        # Alternative: use predicted *D* fields directly,
         # but here we are validating Jacobian directly: Ji_reg is the regime-average of Ji(z).
         # We'll keep Ji_reg as a regime-average Jacobian, because OBS Ji_obs came from a derivative of X.
-        # To mirror the OBS stencil, you want Ji_reg_pos = Ji_pp (zj>0, zi>0) vs Ji_mp (zj>0, zi<0), etc,
+        # To mirror the OBS stencil, use Ji_reg_pos = Ji_pp (zj>0, zi>0) vs Ji_mp (zj>0, zi<0), etc.
         # but Ji_reg is already a Jacobian, not a field to be differenced in zi.
         # The correct comparable object is:
         #   Ji_reg_pos ≈ E[Ji | zj>0, zi>th] and Ji_reg_neg ≈ E[Ji | zj>0, zi<-th]

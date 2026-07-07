@@ -83,7 +83,7 @@ ssta, mc = kgae.remove_climo(ssta)
 ssta = ssta.transpose("time", "lat", "lon")
 
 # --- Neutral-regime bootstrapped SSTA composites:  -1σ < z < 1σ  ---
-# Assumes you already ran the code you pasted so you have:
+# Assumes the prerequisite arrays are already available:
 #   ssta: xarray.DataArray with dims ('time','lat','lon')
 #   latents: xarray.DataArray with dims ('time','seed','mode')   (we'll mean over seed)
 

@@ -14,7 +14,7 @@ import kgae
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(None, pd.Timestamp(2014,12,31)))
 sst = sst.rename({'latitude':'lat', 'longitude': 'lon'})#.sel(lat=slice(-20,20,None))
 
-# we need an xr.DataArray full of ones, which is shaped like the original dataset to help with saving decoded data in netcdf
+# Reference array for saving decoded training data in netCDF.
 training_template = xr.ones_like(sst.sortby('time').stack(feature=('lat', 'lon')).dropna('feature', how='any').transpose('time', 'feature'))
 
 # split training data into 5-fold crossvalidation splits (taking every fifth value to be one group)
@@ -24,7 +24,7 @@ splits = [ sst.isel(time=slice(i, None, 5)) for i in range(5) ]
 test_sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst.sel(time=slice(pd.Timestamp(2015,1,1), None))
 test_sst = test_sst.rename({'latitude':'lat', 'longitude': 'lon'})#.sel(lat=slice(-20,20,None)) #.sel(lat=slice(-13,13,None))
 
-# we need an xr.DataArray full of ones, which is shaped like the original TEST dataset to help with saving decoded data in netcdf
+# Reference array for saving decoded test data in netCDF.
 test_template = xr.ones_like(test_sst.sortby('time').stack(feature=('lat', 'lon')).dropna('feature', how='any').transpose('time', 'feature'))
 
 # these are the names I am assigning to the latent dimensions, sorted by spectral peak
@@ -351,7 +351,6 @@ for random_seed in range(N):
             for mem in range(21):
                 Path(all_recurse_outdir / f"e3sm.mem{mem}.pacific.recursion{recursion}.nc").unlink()
                 Path(all_recurse_outdir / f"cesm.mem{mem}.pacific.recursion{recursion}.nc").unlink()
-
 
 
 

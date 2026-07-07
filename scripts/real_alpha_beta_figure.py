@@ -10,7 +10,7 @@ n_ensemble = 100
 
 # Mask rule recommendation:
 # - show filled colors where at least 3/5 seeds significant (>=0.6)
-# - still draw unmasked contour lines everywhere (so you see structure even if not "robust")
+# - still draw unmasked contour lines everywhere to show structure even if not "robust"
 sig_thresh = 0.25
 # line contour levels (skip 0): fewer looks cleaner
 nline = 11
@@ -18,12 +18,12 @@ nline = 11
 nlev = 21
 
 
-# If you want to select specific ones, set these lists; otherwise they auto-trim below.
+# Set these lists to select specific modes; otherwise they auto-trim below.
 tendency_modes = [5,4,3]          # e.g. [0, 1, 2] or ["dec1","dec2",...]
 predictor_modes = [5,4,3]        # e.g. [0, 1, 2]
 
 
-# --- labels you control ---
+# --- labels ---
 # columns (tendency modes)
 tendency_mode_labels = {
     tendency_modes[0]: "Decadal",

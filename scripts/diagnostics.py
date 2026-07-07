@@ -95,7 +95,7 @@ def diagnostic1_delta_z(
     return out
 
 
-# ---- example usage ----
+# ---- script entry point ----
 # z: xr.DataArray with dims ('time','mode') or ('mode','time')
 z =  kgae.open_latents("xval", experiment="kgvae_cv1940-2014", n_ensemble=100).mean('seed')
 ds = diagnostic1_delta_z(z, mode_dim="mode", time_dim="time", extreme_sigma=1.0, neutral_sigma=1.0)
@@ -135,6 +135,6 @@ def latent_leakage_metric(delta_z: xr.DataArray,
     return leakage
 
 
-# ---- example usage ----
-leak = latent_leakage_metric(ds["delta_z"])  # or your DataArray directly
+# ---- script entry point ----
+leak = latent_leakage_metric(ds["delta_z"])
 print(leak)

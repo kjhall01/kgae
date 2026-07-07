@@ -202,7 +202,7 @@ def plot_joint_extremes_figure_v2(
         other_modes = [m for m in z["mode"].values.tolist()
                        if m not in [mode_interannual, mode_decadal]]
 
-    # ---- compute 4 quadrant boot composites (uses your existing function)
+    # ---- compute 4 quadrant boot composites
     quads = {
         "TL": dict(i_sign=+1, d_sign=-1),
         "BL": dict(i_sign=-1, d_sign=-1),
@@ -559,7 +559,7 @@ if __name__ == "__main__":
     ssta = kgae.open_references('xval', experiment=experiment)
 
     # -----------------------------
-    # Example usage
+    # Script entry point
     # -----------------------------
     fig, boot = plot_joint_extremes_figure_v2(
         ssta, z, mode_interannual=4, mode_decadal=5,

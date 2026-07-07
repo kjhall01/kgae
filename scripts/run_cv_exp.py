@@ -185,7 +185,7 @@ for random_seed in range(100):
         #    coords={
         #        'time': train['time'].values, 
         #        'mode': np.arange(1, oae.latent_dim+1), 
-        #        'feature': val.feature # this is fine becase train.feature doesn't exist and train.feature should == val.feature
+        #        'feature': val.feature
         #    },
         #    dims=['time', 'mode', 'feature']
         #).sortby('time')
@@ -381,4 +381,3 @@ for random_seed in range(100):
         xval_test_references = xr.concat(xval_test_references, 'fold').sortby('fold')
         xval_test_references = xval_test_references.unstack('feature').sortby(['time', 'fold', 'lat', 'lon'])
         xval_test_references.to_netcdf(run_dir / 'test_references.nc' )
-

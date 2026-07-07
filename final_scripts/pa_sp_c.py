@@ -184,7 +184,7 @@ def load_regression_fields() -> Tuple[Dict[str, xr.DataArray], Dict[str, xr.Data
     alpha_sig = None
     beta_sig = None
     if MASK_MODE == "sig_intersection":
-        # bootstrap along seed (as you do)
+        # Bootstrap along seed.
         alpha_pct = bootstrap_pct_lt_zero(alpha_full.mean("fold").sel(tendency_mode=MODES),
                                           dim=REG_SIG_DIM, n_resamples=REG_SIG_N_BOOT,
                                           block_length=1, rng_seed=0)
@@ -258,7 +258,7 @@ def composite_metrics_once(
         return None, None
 
     lin = (mu_pos - mu_neg)
-    sym = (mu_pos - 2.0 * mu_neu + mu_neg)  # algebraic simplification of your sym form
+    sym = (mu_pos - 2.0 * mu_neu + mu_neg)  # algebraic simplification of the symmetric form
     return lin, sym
 
 def bootstrap_composites(
@@ -314,7 +314,7 @@ def load_composite_fields() -> Tuple[Dict[str, xr.DataArray], Dict[str, xr.DataA
             ssta, z, MODES, n_boot=COMP_N_BOOT, block_len=COMP_BLOCK_LEN,
             rng_seed=COMP_RNG_SEED, sigma_mult=COMP_SIGMA_MULT
         )
-        # use 95% CI by quantiles (fixing your current [0.25,0.5,0.75] if you want)
+        # Use 95% CI by quantiles.
         qs = [0.025, 0.975]
         lin_sig = []
         sym_sig = []

@@ -241,7 +241,7 @@ else:
     beta_mean = betas_sel.mean("seed")
     beta_sig_frac = beta_sigs_sel.mean("seed")
 
-    # (optional predictors for regression if you use them)
+    # Optional predictors for regression.
     alphas_sel = alphas.sel(tendency_mode=tendency_modes)
 
     reference_sst = kgae.open_references("xval", experiment=experiment).transpose("time", "lat", "lon")
@@ -256,7 +256,7 @@ else:
     seeds = latents_sel["seed"].values
 
     # ----------------------------
-    # NEW: compute composite per seed + seedwise sigmask => comp_mean + comp_sig_frac
+    # Compute composite per seed + seedwise sigmask => comp_mean + comp_sig_frac.
     # ----------------------------
     comp_point_by_seed = []
     sigmask_by_seed = []

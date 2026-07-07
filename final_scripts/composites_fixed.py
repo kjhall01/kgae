@@ -349,7 +349,7 @@ def plot_six_panel_composites(
 
 
 # -----------------------------
-# Example usage (you already have ssta, z)
+# Script entry point
 # -----------------------------
 if __name__ == "__main__":
     import kgae 

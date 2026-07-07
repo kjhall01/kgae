@@ -97,7 +97,7 @@ def plot_joint_histograms(
     xval_x, xval_y = flatten_da(xval_da)
     test_x, test_y = flatten_da(test_da)
 
-    # Shared bin edges (important!)
+    # Shared bin edges.
     xmin = min(xval_x.min(), test_x.min())
     xmax = max(xval_x.max(), test_x.max())
     ymin = min(xval_y.min(), test_y.min())

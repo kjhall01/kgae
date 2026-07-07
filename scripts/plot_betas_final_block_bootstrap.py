@@ -152,9 +152,9 @@ def _pure_even_sigmask_one_seed(
     n_boot=500,
     ci_level=0.95,
     rng_seed=0,
-    block_len=24,                 # NEW: block length in months
-    recompute_thresholds=True,    # NEW: recompute std/neutral thresholds within each replicate
-    min_samples=5,                # NEW: guard against empty regimes
+    block_len=24,                 # block length in months
+    recompute_thresholds=True,    # recompute std/neutral thresholds within each replicate
+    min_samples=5,                # guard against empty regimes
 ):
     """
     PURE-EVEN asymmetric estimator:
@@ -311,7 +311,7 @@ else:
     beta_mean = betas_sel.mean("seed")
     beta_sig_frac = beta_sigs_sel.mean("seed")
 
-    # (optional predictors for regression if you use them)
+    # Optional predictors for regression.
     alphas_sel = alphas.sel(tendency_mode=tendency_modes)
 
     reference_sst = kgae.open_references("xval", experiment=experiment).transpose("time", "lat", "lon")
@@ -326,7 +326,7 @@ else:
     seeds = latents_sel["seed"].values
 
     # ----------------------------
-    # NEW: compute composite per seed + seedwise sigmask => comp_mean + comp_sig_frac
+    # Compute composite per seed + seedwise sigmask => comp_mean + comp_sig_frac.
     # ----------------------------
     comp_point_by_seed = []
     sigmask_by_seed = []

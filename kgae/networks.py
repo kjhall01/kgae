@@ -4,7 +4,7 @@ import torch.nn.init as init
 
 class NN(nn.Module):
     """
-        Nearly the simplest feed-forward neural network you can imagine.
+        Minimal feed-forward neural network.
     """
     def __init__(self, 
         input_dim, 

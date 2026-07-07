@@ -173,7 +173,7 @@ def plot_alpha_beta_maps(
     #cax_alpha = fig.add_axes([0.10, 0.07, 0.22, 0.025])
     #cax_beta  = fig.add_axes([0.38, 0.07, 0.52, 0.025])
 
-    # After creating your ax array from GridSpec:
+    # After creating the ax array from GridSpec:
     # ax is shape (n_modes, n_modes+1)
 
     # Use the first row (i=0) to compute positions

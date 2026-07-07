@@ -9,7 +9,7 @@ Rows 1..N: beta-like "state-dependence" for J_i ≡ dD/dz_i
     Panel (row=i+1, col=j): B_ij estimated as modulation of J_i by z_j
     using a *pure i-active basepoint* z* = ± a_i e_i, with z_j toggled.
 
-Directional interaction probe (your preferred construction):
+Directional interaction probe:
     1) Define J_i(z) ≈ [D(z + δ_i e_i) - D(z - δ_i e_i)] / (2 δ_i)
     2) Then B_ij(z*) ≈ [J_i(z* + a_j e_j) - J_i(z* - a_j e_j)] / (2 a_j)
     3) Average over z* = +a_i e_i and z* = -a_i e_i
@@ -27,8 +27,8 @@ Bootstrap:
 
 Note on scaling:
 - a_i, a_j, δ_i are in *latent units* (post flip_signs alignment).
-- If you want "per-sigma" meaning, set a_i = 1 to mean 1σ *in your standardized latent*,
-  and δ_i small (e.g., 0.25).
+- For "per-sigma" scaling, set a_i = 1 to mean 1σ in the standardized latent,
+  with small δ_i (e.g., 0.25).
 """
 
 import glob

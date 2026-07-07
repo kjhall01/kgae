@@ -85,7 +85,7 @@ def month_lag_corr_xr(x, y, nlags=36):
     """
     # align on time first
     x, y = xr.align(x, y, join="inner")
-    # collapse non-time dims (so we correlate ensemble-mean; change if you want seedwise)
+    # Collapse non-time dims to correlate ensemble means.
     other_x = [d for d in x.dims if d != "time"]
     other_y = [d for d in y.dims if d != "time"]
     if other_x:
@@ -327,7 +327,7 @@ if __name__ == "__main__":
         ax.set_title("")  # no per-panel title
         ax.tick_params(labelsize=9)
 
-        # IMPORTANT: move the "precedes/follows" text into axes coords so it won't collide
+        # Put the "precedes/follows" text in axes coordinates to avoid collisions.
         ax.text(0.02, 1.02, "QB precedes IA", transform=ax.transAxes,
                 ha="left", va="bottom", fontsize=9)
         ax.text(0.98, 1.02, "QB follows IA", transform=ax.transAxes,

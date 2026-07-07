@@ -434,7 +434,7 @@ if __name__ == "__main__":
                 coords={
                     'time': train['time'].values, 
                     'mode': np.arange(1, oae.latent_dim+1), 
-                    'feature': val_stacked.feature # this is fine becase train.feature doesn't exist and train.feature should == val.feature
+                    'feature': val_stacked.feature
                 },
                 dims=['time', 'mode', 'feature']
             ).unstack('feature').sortby(['time', 'lat', 'lon'])
@@ -513,4 +513,3 @@ if __name__ == "__main__":
                 test_pcs.to_netcdf( seed_dir / 'full_pca_test_latents.nc')
                 test_recon.to_netcdf( seed_dir / 'full_pca_test_reconstructions.nc')
                 eofs.to_netcdf(seed_dir / 'full_pca_eofs.nc')
-

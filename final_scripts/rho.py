@@ -21,8 +21,8 @@ Workflow:
 5) Plot masked mean maps (filled where significant) + contour lines everywhere.
 
 Notes:
-- This assumes all models share the same training feature mask/domain as your SST stacking.
-- If not, you'll get a feature-length mismatch error and should build the template
+- This assumes all models share the same training feature mask/domain as the SST stacking.
+- If not, a feature-length mismatch indicates that the template should be built
   using the same mask used in training.
 """
 
@@ -297,7 +297,7 @@ for p in paths[:1]:
     # apply sign convention
     latents = latents * model.flip_signs
 
-    # scale by sigma (your convention)
+    # Scale by sigma.
     sig = latents.std("time")
     mu = latents.mean("time")
     print(mu)
@@ -429,7 +429,7 @@ plt.show()
 
 # -----------------------------
 # Plot alpha + selected beta rows per tendency column (only predictors involving that tendency)
-# using your matching logic.
+# Use mode-label matching logic.
 # -----------------------------
 pred_names = beta_mean["predictor_mode"].values
 tm_labels  = beta_mean["tendency_mode"].values

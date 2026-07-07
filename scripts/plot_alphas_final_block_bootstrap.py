@@ -15,7 +15,7 @@ cache_file = "cache_alpha_and_linear_composites.nc"
 experiment = "kgvae_cv_ema-1940-2014"
 n_ensemble = 36
 # ----------------------------
-# Alpha plotting significance (your existing behavior)
+# Alpha plotting significance
 # ----------------------------
 sig_thresh_alpha = 0.1   # fraction of seeds significant for alpha fill
 sig_thresh_alpha_hatch = 0.999   # fraction of seeds significant for alpha hatch
@@ -32,7 +32,7 @@ comp_sig_thresh_hatch = 0.9
 n_boot_comp = 200
 ci_level_comp = 0.90      # seed-level bootstrap CI (95%)
 
-# composite definition settings (same as your linear comp)
+# Composite definition settings
 sigma_thresh_comp = 1.0
 neutral_thresh_comp = 1.0
 
@@ -110,8 +110,8 @@ def _bootstrap_sigmask_linear_comp_one_seed(
     ci_level=0.95,
     rng_seed=0,
     block_len=24,                 # block length in months (moving-block bootstrap)
-    recompute_thresholds=True,    # <- important: recompute std/neutral thresholds within each bootstrap
-    min_samples=5,                # <- guard against empty composites
+    recompute_thresholds=True,    # recompute std/neutral thresholds within each bootstrap
+    min_samples=5,                # guard against empty composites
 ) -> xr.DataArray:
     """
     Seed-level significance for linear/symmetric composite:
@@ -148,7 +148,7 @@ def _bootstrap_sigmask_linear_comp_one_seed(
         raise ValueError(f"mode_val={mode_val} not found in z_seed[{mode_dim}].") from e
     other_idx = np.array([k for k in range(L) if k != i_mode], dtype=int)
 
-    # If you *don't* recompute thresholds each replicate, compute fixed thresholds once here.
+    # When thresholds are fixed across replicates, compute them once here.
     if not recompute_thresholds:
         zi = z_np[:, i_mode]
         std_i_fixed = float(np.nanstd(zi, ddof=0))
@@ -198,7 +198,7 @@ def _bootstrap_sigmask_linear_comp_one_seed(
         pos_m = np.nanmean(X_b[pos_b, :, :], axis=0)
         neg_m = np.nanmean(X_b[neg_b, :, :], axis=0)
 
-        # symmetric/linear composite scaling (as you had)
+        # symmetric/linear composite scaling
         boot[b, :, :] = (pos_m - neg_m) / 2.0
 
     # 4) CI + significance mask
@@ -363,7 +363,7 @@ else:
     alphas_sel = alphas.sel(tendency_mode=tendency_modes)
     alpha_sigs_sel = alpha_sigs.sel(tendency_mode=tendency_modes)
 
-    # IMPORTANT: compute composite on same latent subset you’re plotting
+    # Compute composite on the same latent subset used for plotting.
     latents_sel = latents.sel(mode=tendency_modes)
 
     # linear composite per seed (for plotting mean + regression)
@@ -384,7 +384,7 @@ else:
     comp_mean = comp_lin.mean("seed")
 
     # ----------------------------
-    # NEW: composite significance fraction across seeds using per-seed bootstrap @95%
+    # Composite significance fraction across seeds using per-seed bootstrap at 95%.
     # ----------------------------
     if "mode" in latents_sel.dims and "tendency_mode" not in latents_sel.dims:
         latents_sel = latents_sel.rename({"mode": "tendency_mode"})

@@ -702,7 +702,7 @@ def plot_joint_extremes_paironly_figure(
     smooth_sigma=1.2,
 ):
     """
-    Same layout as your previous figure, but composites pair-only reconstructions.
+    Same layout as the previous figure, but composites pair-only reconstructions.
     """
     z = z_all
     if "seed" in z.dims:
@@ -863,7 +863,7 @@ def plot_joint_extremes_paironly_figure(
 # =========================================================
 def compute_superposition_residual(rec_pair, z, i_mode=4, d_mode=5):
     """
-    Optional helper if you want the explicit superposition-failure map:
+    Optional helper for the explicit superposition-failure map:
       N = D(i,d) - D(i,0) - D(0,d) + D(0,0)
 
     Here it is estimated via quadrant composites:
@@ -909,8 +909,8 @@ def plot_symmetry_2x3_from_boot(
     -----
     This uses the bootstrap medians already stored in boot_*.
     It does NOT propagate significance exactly for the differences.
-    If you want significance on the symmetry maps themselves, we should
-    bootstrap the differences directly.
+    For significance on the symmetry maps themselves, bootstrap the
+    differences directly.
     """
     factor = 0.5 if use_half_difference else 1.0
 
@@ -1332,7 +1332,7 @@ if __name__ == "__main__":
         n_boot=500,
         block_len=12,
         rng_seed=123,
-        recompute=False,   # switch to True if you want to refresh cache
+        recompute=False,   # set True to refresh cache
     )
 
     fig_sym = plot_symmetry_2x3_from_dataset(ds_sym)

@@ -17,7 +17,7 @@ Inputs:
            (we use .sel(mode=...) and then squeeze any leftover dims if needed)
   oni:     xr.DataArray with dim ('time',) (monthly)
 
-You can drop this into your workflow where you already have latents and oni loaded.
+Use with preloaded latents and ONI time series.
 """
 
 import numpy as np
@@ -74,7 +74,7 @@ def crosscorrelation_by_month(x, y, nlags=36, n_months_per_lag=1):
 
     return corrs, sigs 
 # ----------------------------
-# Config you’ll likely change
+# Configurable settings
 # ----------------------------
 MODE_QB = 3
 MODE_IA = 4
@@ -446,7 +446,7 @@ def make_figure(
 
 
 # ----------------------------
-# Example usage
+# Script entry point
 # ----------------------------
 if __name__ == "__main__":
     import kgae
@@ -458,8 +458,7 @@ if __name__ == "__main__":
     # latents: (seed,time,mode)
     latents = kgae.open_latents("xval", experiment=experiment, n_ensemble=n_ensemble)
     #latents = (latents.groupby('time.month') - latents.groupby('time.month').mean('time'))
-    # oni: (time,) — replace this with however you already have ONI
-    # Here: compute ONI-like index from references as placeholder if you want:
+    # oni: (time,) computed from references for this analysis.
     refs = kgae.open_references("xval", experiment=experiment)
     oni = refs.sel(lat=slice(-5, 5), lon=slice(-10, 60)).mean(("lat", "lon"))
     oni = _as_1d_time(oni)

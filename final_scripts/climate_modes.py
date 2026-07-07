@@ -159,7 +159,7 @@ if __name__ == "__main__":
     block_len = 12
     alpha_sig = 0.5
     n_levels = 21
-    vlim = None                 # set e.g. 0.6 if you want fixed scaling
+    vlim = None                 # set e.g. 0.6 for fixed scaling
     standardize_index = True    # True => pattern is °C per 1σ(index)
     central_longitude = 180
 

@@ -151,7 +151,7 @@ def canonical_beta(beta, n_components):
     Accepts common permutations:
       - (lat, lon, tend, pred)  [preferred]
       - (tend, pred, lat, lon)
-      - (lat, lon, pred, tend) (will be rejected unless you reorder before saving)
+      - (lat, lon, pred, tend) (reorder before saving)
     """
     beta = np.asarray(beta)
     if beta.ndim != 4:
@@ -1340,7 +1340,7 @@ def plot_progressive_split_paper_grayscale_clean_v2(
             "e": "Δ NMSE"
         }
 
-    # IMPORTANT: default top x label should not be empty
+    # Default top x label should not be empty.
     if xlabels is None:
         xlabels = {
             "top": "Fraction of first contiguous part",
@@ -1430,8 +1430,8 @@ def plot_progressive_split_paper_grayscale_clean_v2(
     # bottom axis spans both columns
     ax_e = fig.add_subplot(gs[3, :], sharex=ax_a if sharex else None)
 
-    # If you sharex with ax_e, Matplotlib hides tick labels on ax_b/ax_d by default.
-    # We'll re-enable them.
+    # Sharing x with ax_e makes Matplotlib hide tick labels on ax_b/ax_d by default.
+    # Re-enable them explicitly.
     ax_b.tick_params(axis="x", labelbottom=True)
     ax_d.tick_params(axis="x", labelbottom=True)
 
@@ -1568,7 +1568,7 @@ def plot_progressive_split_paper_grayscale_clean_v2(
         ax_d.set_xlabel(top_xlabel)
 
     # ---------- (e) NMSE ----------
-    # within solid, ref dashed (per your legend convention)
+    # Within solid, reference dashed.
     ax_e.plot(fr, nmse_w_med, linestyle=linestyle_kgae,
               marker="o", color=line_color, linewidth=median_lw)
     ax_e.plot(fr, nmse_r_med, linestyle=linestyle_pca,
@@ -1789,7 +1789,7 @@ def plot_recon_degradation(recon, figsize=(8, 3.2)):
 
 if __name__ == "__main__":
     results_pca, results_kgae, stability, recon = progressive_split_experiment_cached(
-        cache_level="summary",          # FIRST RUN should be "full" to populate new caches (beta + recon metrics)
+        cache_level="summary",          # use "full" first to populate new caches (beta + recon metrics)
         fractions=[0.5, 0.55, 0.6, 0.65, 0.7, 0.75, 0.8, 0.85, 0.9],
         seeds=(0, 1, 2, 3, 4),
         n_boot=1000,
@@ -1832,7 +1832,7 @@ if __name__ == "__main__":
             "bottom": "Cross-validation Period Fraction",
         },
 
-        # keep spreads off unless you really want them
+        # Keep spreads off by default.
         show_spread_components={
             "nmse_within": True, 
             "nmse_ref": True,

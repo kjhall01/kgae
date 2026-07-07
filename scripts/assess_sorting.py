@@ -11,7 +11,7 @@ n_ensemble = 95
 # which mode to diagnose (QB)
 qb_mode = 5
 
-# optional: if you want to limit to a time range
+# Optional time-range limit
 time_slice = (None, None)  # e.g. ("1950-01-01","2014-12-31")
 
 # period band (years) to search for a peak (QB-ish)
@@ -244,7 +244,7 @@ print(f"low mean corr-to-mean (<0.6): {flag_low_coherence}")
 print(f"many weak pairwise correlations (|r|<0.2 in >20% pairs): {flag_many_low_pair}")
 print(f"wide peak-period spread (p90-p10 > 0.8y): {flag_wide_peak}")
 
-# If you want the actual arrays saved for later:
+# Optional array export:
 # C.to_netcdf("qb_pairwise_corr.nc")
 # xr.Dataset({"r_to_mean": r_to_mean}).to_netcdf("qb_corr_to_mean.nc")
 # xr.Dataset({"peak_period_years": (ens_dim, peak_periods),

@@ -150,7 +150,7 @@ for random_seed in range(n_ensemble):
             coords={
                 'time': train['time'].values, 
                 'mode': np.arange(1, oae.latent_dim+1), 
-                'feature': val.feature # this is fine becase train.feature doesn't exist and train.feature should == val.feature
+                'feature': val.feature
             },
             dims=['time', 'mode', 'feature']
         ).sortby('time')
@@ -266,7 +266,7 @@ for random_seed in range(n_ensemble):
         coords={
             'time': train['time'].values, 
             'mode': np.arange(1, oae.latent_dim+1), 
-            'feature': val.feature # this is fine becase train.feature doesn't exist and train.feature should == val.feature
+            'feature': val.feature
         },
         dims=['time', 'mode', 'feature']
     ).sortby('time')

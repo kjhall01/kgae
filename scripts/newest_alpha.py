@@ -224,7 +224,7 @@ def cond_ztz_per_point(Z: xr.DataArray, eps: float = 0.0) -> xr.DataArray:
 
 
 
-# Example usage:
+# Script entry point:
 # fig, axes = plot_seed_hist_kde_grid_by_modes(beta_point_da)
 # plt.show()
 
@@ -234,8 +234,8 @@ def cond_ztz_per_point(Z: xr.DataArray, eps: float = 0.0) -> xr.DataArray:
 # plt.show()
 
 
-# --- example usage ---
-# fig, axes = plot_fold_kde_by_mode(your_da)
+# --- script entry point ---
+# fig, axes = plot_fold_kde_by_mode(da)
 # plt.show()
 if __name__ == "__main__":
 

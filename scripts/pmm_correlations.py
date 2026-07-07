@@ -16,7 +16,7 @@ def regress_out(y, x, dim='time'):
     x_anom = x - x.mean(dim)
     y_anom = y - y.mean(dim)
     b = xr.cov(y_anom, x_anom, dim=dim) / x_anom.var(dim)
-    return y - b * x  # keep y's mean; or use y_anom - b*x_anom if you prefer anomalies
+    return y - b * x  # keep y's mean
 
 def pattern_corr(a, b):
     """
@@ -35,7 +35,7 @@ def pattern_corr(a, b):
     den = np.sqrt((aa**2 * w2d).sum(('lat','lon')) * (bb**2 * w2d).sum(('lat','lon')))
     return num / den
 
-# --- your data ---
+# --- input data ---
 pmm = xr.open_dataset('pmm.nc').value  # DataArray(time)
 sst = xr.open_dataset('~/Desktop/Data/era5/era5.sst.pacific.1x1.1940-2023.nc').sst
 sst = sst.rename({'latitude':'lat', 'longitude':'lon'})
@@ -53,9 +53,9 @@ nino4 = ssta.sel(lat=slice(-5, 5), lon=slice(-20, 30)).mean(["lat", "lon"])
 # Niño1+2: 0–10S, 90W–80W -> lon 270..280E => [-90..-80] in [-180,180]
 nino12 = ssta.sel(lat=slice(-10, 0), lon=slice(90, 100)).mean(["lat", "lon"])
 
-# (Optional) Niño3 if you still want to plot it / compare
+# Optional Niño3 comparison.
 # Niño3: 5S–5N, 150W–90W -> lon 210..270E => [30..-90] crosses dateline in [-180,180]
-# easiest is to do it in 0..360 instead; leaving out unless you need it
+# Use 0..360 longitude handling if this comparison is enabled.
 
 # Takahashi-style simplified CP index
 C_index = 1.7 * nino4 - 0.1 * nino12
@@ -124,7 +124,7 @@ ax.coastlines()
 plt.title("PMM pattern (SST with ENSO regressed out; 20S–30N, 175E–95W)")
 plt.show()
 
-# --- compare to your beta_di ---
+# --- compare to beta_di ---
 beta_di = beta_means.sel(
     tendency_mode=5, predictor_mode=4
 )
@@ -136,7 +136,7 @@ beta_pmm_dom = beta_di.sel(lat=PMM_LAT, lon=PMM_LON)
 spatial_corr = pattern_corr(beta_pmm_dom, pmm_pattern)
 print("PMM vs Beta D-I (PMM MCA domain, ENSO removed from SST):", float(spatial_corr.values))
 
-# --- PDO stays basically as you had, but area-weight weights is nicer ---
+# --- PDO with area-weighted averaging ---
 pdo_index = kgae.open_pdo().sel(dataset='PSL ERSSTv5 PDO')
 
 # (Optional) match lon convention

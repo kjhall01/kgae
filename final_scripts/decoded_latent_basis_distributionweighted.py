@@ -21,7 +21,7 @@ Interpretation:
 Notes:
 - This is *not* the minimal 4-corner mixed-partial stencil; it is a "D(0)-included" formulation.
 - It should be numerically stable when b is small, but uses 6 decoder evals per batch for off-diagonals.
-- If you want symmetric j<->k by construction, use the 4-corner mixed central difference instead.
+- A symmetric j<->k formulation can use the 4-corner mixed central difference instead.
 """
 
 import glob
@@ -50,7 +50,7 @@ N_SAMPLES = 500
 RANDOM_SEED = 0
 BATCH = 256
 
-# Mode indices (your current mapping)
+# Mode indices
 MODE = {"QB": 2, "IA": 3, "DEC": 4}
 COL_ORDER = ["DEC", "IA", "QB"]
 ROW_CONTEXT = [None, "DEC", "IA", "QB"]
@@ -258,7 +258,7 @@ def pcolormesh_latlon(ax, da_latlon: xr.DataArray, vmin: float, vmax: float):
 # Main
 # -----------------------------
 def main():
-    import kgae  # you already have this in your environment
+    import kgae  # local project
     rng = np.random.default_rng(RANDOM_SEED)
 
     # 1) feature template

@@ -690,7 +690,7 @@ def main():
         "axes.titleweight": "regular",
     })
 
-    # More “double-column journal” friendly aspect; adjust as you like
+    # Double-column journal-friendly aspect.
     fig = plt.figure(figsize=(8.5, 9.2))
     gs = GridSpec(
         nrows=4, ncols=2,
@@ -806,7 +806,7 @@ def main():
     # x is already equally spaced; choose a constant stride for readability
     # -----------------------------
     n = len(x_dates)
-    tick_step = max(1, int(np.ceil(n / 8)))  # ~8 labels across; set to 1 if you want all splits labeled
+    tick_step = max(1, int(np.ceil(n / 8)))  # roughly 8 labels across
     tick_idx = np.arange(0, n, tick_step)
     tick_labels = [x_dates[i].strftime("%Y-%m") for i in tick_idx]
 

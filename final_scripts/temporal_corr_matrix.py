@@ -144,12 +144,12 @@ if __name__ == "__main__":
 
 
 # -----------------------------
-# Example usage
+# Script entry point
 # -----------------------------
 # da: xr.DataArray with dims (time, mode)
 # corr = corr_matrix(da)
 
-# Option A: bold specific entries you reference in text
+# Option A: bold specific entries referenced in text
 # bold = {("PDO", "BDM"), ("ONI", "IA"), ("ONI", "QB")}
 # tex = corr_to_latex_table(
 #     corr,

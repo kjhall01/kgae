@@ -311,7 +311,7 @@ for m in cols:
     beta_sig_ii_cols.append(s)
 
 # -----------------------------
-# NEW Row 3: beta_sum over predictors in `cols` for each target m
+# Row 3: beta_sum over predictors in `cols` for each target m
 # -----------------------------
 beta_sum_cols = []
 beta_sum_sig_cols = []
@@ -336,7 +336,7 @@ for m in cols:
 # -----------------------------
 # Rows 4–5: linear (pos-neg) / nonlinear (pos+neg)
 # Row 6: amplitude (|z| high - |z| low)
-# NEW Row 7: curvature 2nd-difference in |z| (hi - 2*mid + low)
+# Row 7: curvature 2nd-difference in |z| (hi - 2*mid + low)
 # -----------------------------
 zbar = latents.mean("seed").transpose("time", "mode")
 sigma_all = zbar.std("time")

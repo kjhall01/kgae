@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Nine-panel decoder-probing figure (3 rows x 3 cols) extending your six-panel script.
+Nine-panel decoder-probing figure (3 rows x 3 cols).
 
 Row 1 (top):   alpha-like linear response
     alpha_j ≈ [D(+a e_j) - D(-a e_j)] / (2a)
@@ -22,7 +22,7 @@ Bootstrap:
 - For each seed: average across splits (split-mean).
 - i.i.d. bootstrap across seeds to form CI at each gridpoint.
 - Filled contours only where CI excludes 0; black contours everywhere (neg dashed).
-- One colorbar per row (right side), matching your style.
+- One colorbar per row (right side).
 """
 
 import glob

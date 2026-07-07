@@ -168,7 +168,7 @@ def wave_filter(xda, time_dim='step', lon_dim='longitude', waveName='Kelvin', ob
     dim_sizes = list(xda.shape) # this is the sizes of the dimensions
     dim_names = list(xda.dims) # this is the names of the dimensions
     potential_dims = 'abcdefghijkmnopqrsuvwxyz' # alphabet without l - longitude and t - time
-    assert len(dim_sizes) < 24, 'how literally dare you use 24-dimensional data- are you a monster?'
+    assert len(dim_sizes) < 24, 'Input dimensionality must be less than 24.'
     dim_str = potential_dims[:len(dim_sizes)] # this is an einstein summation index notation representing the data
     timedim_ndx = dim_names.index(time_dim)
     londim_ndx = dim_names.index(lon_dim)
@@ -232,7 +232,7 @@ def low_pass(xda, time_dim='time', threshold=7*12*30.4*86400, obs_per_second=1/(
     dim_sizes = list(xda.shape) # this is the sizes of the dimensions
     dim_names = list(xda.dims) # this is the names of the dimensions
     potential_dims = 'abcdefghijkmnopqrsuvwxyz' # alphabet without l - longitude and t - time
-    assert len(dim_sizes) < 24, 'how literally dare you use 24-dimensional data- are you a monster?'
+    assert len(dim_sizes) < 24, 'Input dimensionality must be less than 24.'
     dim_str = potential_dims[:len(dim_sizes)] # this is an einstein summation index notation representing the data
     timedim_ndx = dim_names.index(time_dim)
     chunksizes = [1 for i in range(len(dim_sizes))]
@@ -278,7 +278,7 @@ def high_pass(xda, time_dim='time', threshold=3*12*30.4*86400, obs_per_second=1/
     dim_sizes = list(xda.shape) # this is the sizes of the dimensions
     dim_names = list(xda.dims) # this is the names of the dimensions
     potential_dims = 'abcdefghijkmnopqrsuvwxyz' # alphabet without l - longitude and t - time
-    assert len(dim_sizes) < 24, 'how literally dare you use 24-dimensional data- are you a monster?'
+    assert len(dim_sizes) < 24, 'Input dimensionality must be less than 24.'
     dim_str = potential_dims[:len(dim_sizes)] # this is an einstein summation index notation representing the data
     timedim_ndx = dim_names.index(time_dim)
     chunksizes = [1 for i in range(len(dim_sizes))]
@@ -325,7 +325,7 @@ def band_pass(xda, time_dim='time', high_threshold=3*12*30.4*86400, low_threshol
     dim_sizes = list(xda.shape) # this is the sizes of the dimensions
     dim_names = list(xda.dims) # this is the names of the dimensions
     potential_dims = 'abcdefghijkmnopqrsuvwxyz' # alphabet without l - longitude and t - time
-    assert len(dim_sizes) < 24, 'how literally dare you use 24-dimensional data- are you a monster?'
+    assert len(dim_sizes) < 24, 'Input dimensionality must be less than 24.'
     dim_str = potential_dims[:len(dim_sizes)] # this is an einstein summation index notation representing the data
     timedim_ndx = dim_names.index(time_dim)
     chunksizes = [1 for i in range(len(dim_sizes))]

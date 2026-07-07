@@ -191,7 +191,7 @@ def cross_composites(
     Z: [sample_dim, latent_dim]
     """
 
-    # Quantile thresholds (simplified, using +/- std as in your code)
+    # Quantile thresholds, simplified using +/- standard deviation.
     lower_thresh = Z.quantile(lower_q, dim=sample_dim) #
     upper_thresh = Z.quantile(upper_q, dim=sample_dim) #
 

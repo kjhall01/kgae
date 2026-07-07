@@ -6,7 +6,7 @@ Fix time-coordinate mislabeling for train_latents.nc / train_reconstructions.nc
 This script:
 - Walks progressive-split/<split>/seed*/fold*/ for fold-level train files (step=4)
 - Walks progressive-split/<split>/seed*/ for full-model train files (step=5)
-- Uses train_references.nc (or full_train_references if you had it; else fold0 refs) to get chronological time T
+- Uses train_references.nc (or full_train_references if available; else fold0 refs) to get chronological time T
 - Computes vstack_time = concat(T[j::step] for j in range(step))
 - Reassigns the correct time coords to the misordered arrays
 - Sorts by time

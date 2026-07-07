@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-DROP-IN replacement for your conditional composite script, but with
+Conditional composite analysis with
 **phase-restricted** (sign-constrained) linear/nonlinear responses.
 
 What it computes (per target mode i, with optional gating on other modes):
@@ -23,11 +23,11 @@ For each sign we compute:
         NL_pos = slope(hi-mid) - slope(mid-lo)          [K / z^2]
         NL_neg = slope(hi-mid) - slope(mid-lo)          [K / z^2]
 
-Then you can choose what to plot in the bottom row:
+Bottom-row plot choices:
   * "nl_pos"  : nonlinearity within positive phase only
   * "nl_neg"  : nonlinearity within negative phase only
   * "nl_sum"  : NL_pos + NL_neg  (magnitude-driven curvature, sign-blind)
-  * "nl_diff" : NL_pos - NL_neg  (your "should be NL(+) - NL(-)" object)
+  * "nl_diff" : NL_pos - NL_neg  (phase-asymmetry contrast)
 
 Plot:
   - 2 x 3 map figure (same style as before):
@@ -267,7 +267,7 @@ def bootstrap_phase_binned(
             results[k][i_mode] = xr.concat(lists[k], dim="boot").assign_coords(boot=np.arange(n_boot))
 
     out = {k: results[k] for k in keys}
-    qs = [0.25, 0.5, 0.75]  # keeping your convention
+    qs = [0.25, 0.5, 0.75]
 
     for k in keys:
         out["ci_" + k] = {}
@@ -316,7 +316,7 @@ def _nice_levels_from_maps(maps, n_levels=21, robust=0.99):
 
 
 # -----------------------------
-# Main plot function (drop-in name)
+# Main plot function
 # -----------------------------
 def plot_six_panel_composites(
     ssta,
@@ -330,7 +330,7 @@ def plot_six_panel_composites(
     sigma_mult=1.0,
     central_longitude=180,
     cmap="RdBu_r",
-    # NEW controls
+    # Magnitude-bin controls
     t1=0.5,
     t2=1.0,
     min_count=5,
@@ -454,7 +454,7 @@ def plot_six_panel_composites(
 
 
 # -----------------------------
-# Example usage (same pattern as your old script)
+# Script entry point
 # -----------------------------
 if __name__ == "__main__":
     import kgae
@@ -462,7 +462,7 @@ if __name__ == "__main__":
     n_ensemble = 100
     experiment = "./large-ensemble-2-1940-2014"
 
-    # You had mean('seed') before; keep that
+    # Use seed-mean latents for the composite.
     z = kgae.open_latents("xval", experiment=experiment, n_ensemble=n_ensemble).mean("seed")
     ssta = kgae.open_references("xval", experiment=experiment)
 
@@ -478,11 +478,11 @@ if __name__ == "__main__":
         rng_seed=123,
         sigma_mult=1.5,          # gating on other modes
         central_longitude=180,
-        # NEW: bin thresholds in sigma units
+        # Bin thresholds in sigma units
         t1=0.5,
         t2=1.0,
         min_count=5,
-        # NEW: what to show
+        # Output fields to show
         top_key="lin_pos",       # linear within positive phase
         bottom_key="nl_diff",    # NL(+) - NL(-)  (phase-asymmetry of nonlinearity)
     )

@@ -28,7 +28,7 @@ stipple_stride = 3
 # Require this fraction of seeds to agree on significance for stippling
 sig_seed_frac = 0.5   # 0.5 = majority vote; 0.8 is stricter; 1.0 is unanimous
 
-# Modes to plot (match your style; change as needed)
+# Modes to plot
 tendency_modes = [5, 4, 3]
 tendency_mode_labels = {
     5: "Decadal Mode",
@@ -137,7 +137,7 @@ def _plot_panel(ax, field, levels, cmap, title, fmt=None, vmin=None, vmax=None):
 # ============================
 r2cv_all, r2te_all, gap_all, sig_all = _load_across_seeds(experiment_root)
 
-# Take seed-median for shading (consistent with your other plotting choices)
+# Take seed-median for shading.
 r2cv_med = _seed_median(r2cv_all)
 r2te_med = _seed_median(r2te_all)
 gap_med  = _seed_median(gap_all)

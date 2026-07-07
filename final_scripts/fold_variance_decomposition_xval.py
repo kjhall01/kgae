@@ -9,7 +9,7 @@ Reference pattern:
 Then for each fold we compare the *ensemble-mean fold map* to the *ensemble-mean reference map*
 (using the same bootstrap-resampled seeds) and compute pattern correlation.
 
-This matches your previous workflow, but replaces "full model" with "CV fold-mean reference".
+This uses a CV fold-mean reference instead of a full-model reference.
 
 Outputs:
   - A multi-panel figure of bootstrap pattern-correlation distributions by fold, for each quantity.
@@ -60,7 +60,7 @@ PCOR_XLIM = (0.0, 1.0)
 
 
 # ============================================================
-# Plot helper (your original, lightly simplified)
+# Plot helper
 # ============================================================
 def plot_fold_boot_distributions(
     da: xr.DataArray,

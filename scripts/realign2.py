@@ -77,7 +77,7 @@ def psd_based_mode_order_desc(
 
 def simple_peakfreq_order_desc(psd_fm: torch.Tensor, freqs_fm: torch.Tensor, eps=1e-12) -> np.ndarray:
     """
-    Simple sort you were doing: order modes by frequency of maximum power, descending.
+    Simple sort: order modes by frequency of maximum power, descending.
     psd_fm: (freq, mode)
     freqs_fm: (freq, mode) or (freq,)
     """
